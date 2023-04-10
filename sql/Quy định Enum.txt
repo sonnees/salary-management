@@ -1,0 +1,19 @@
+chucVu:
+	- Nhân viên kế toán
+ 	- Nhân viên marketing
+	- Nhân viên IT
+	- Nhân viên chăm sóc khách hàng
+	- Nhân viên nhân sự
+trinhDo: 
+	- Dưới đại học
+	- Đại học
+	- Trên đại học
+tiengAnh:
+	- Mức yếu
+	- Mức khá
+	- Mức giỏi
+
+trangThai:
+	- Có mặt
+	- Vắng có phép (phải có lý do)
+	- Vắng không phép
