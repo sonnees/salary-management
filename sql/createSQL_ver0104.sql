@@ -558,11 +558,23 @@ INSERT [dbo].[CaLamViec] ([maCLV], [thoiGianBatDau], [thoiGianKetThuc], [heSo]) 
 GO
 INSERT [dbo].[CaLamViec] ([maCLV], [thoiGianBatDau], [thoiGianKetThuc], [heSo]) VALUES (N'clv_0000002', CAST(N'19:30:00' AS Time), CAST(N'22:30:00' AS Time), 1.5)
 GO
-INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP],[hoanThanh]) VALUES (N'cd_0000000', N'Tạo hình dép cao su', 1, 5500, 2000, N'sp_0000000',0)
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000000', N'Tạo hình dép cao su', 1, 5500, 2000, N'sp_0000000', 0)
 GO
-INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP],[hoanThanh]) VALUES (N'cd_0000001', N'Làm nhẵn dép cao su', 2, 2500, 2000, N'sp_0000000',0)
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000001', N'Làm nhẵn dép cao su', 2, 2500, 2000, N'sp_0000000', 0)
 GO
-INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP],[hoanThanh]) VALUES (N'cd_0000002', N'Thử và đóng gói dép cao su', 3, 3000, 2000, N'sp_0000000',0)
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000002', N'Thử và đóng gói dép cao su', 3, 3000, 2000, N'sp_0000000', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000003', N'Tạo hình dép tổ ong', 1, 5000, 2000, N'sp_0000002', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000004', N'Làm nhẵn dép tổ ong', 2, 2000, 2000, N'sp_0000002', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000005', N'Thử và đóng gói dép tổ ong', 3, 3300, 2000, N'sp_0000002', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000006', N'Tạo hình dép da tổng hợp', 1, 6000, 3000, N'sp_0000001', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000007', N'Làm nhẵn dép da tổng hợp', 2, 4000, 3000, N'sp_0000001', 0)
+GO
+INSERT [dbo].[CongDoan] ([maCD], [tenCD], [doUuTien], [donGia], [soLuong], [maSP], [hoanThanh]) VALUES (N'cd_0000008', N'Thử và đóng gói dép da tổng hợp', 3, 5000, 3000, N'sp_0000001', 0)
 GO
 INSERT [dbo].[CongNhan] ([maCN], [tenCN], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [maPB]) VALUES (N'cn_0000000', N'Đỗ Văn Hòa', 0, CAST(N'1998-05-12' AS Date), N'321 Lê Văn Việt, Quận 9, TP. Hồ Chí Minh', N'0912345678', N'pb_0000001')
 GO
@@ -2080,12 +2092,13 @@ INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [
 GO
 INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc],[hoanThanh]) VALUES (N'sp_0000002', N'Dép tổ ong', N'Đôi', 1900, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date),0)
 GO
-INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'sson12131415@gmail.com                                                                                                                                ', N'pass123                                                                                                                                               ', N'ADMIN                                                                                                                                                 ', N'nvhc_0000002')
+INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'sson12131415@gmail.com', N'pass123', N'ADMIN', N'nvhc_0000002')
+INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'thiendat9dthcstanhai@gmail.com', N'pass123', N'ADMIN', N'nvhc_0000004')
 GO
 ALTER TABLE [dbo].[CaLamViec] ADD  CONSTRAINT [DF__CaLamViec__maCLV__2F10007B]  DEFAULT ([dbo].[AUTO_maCLV]()) FOR [maCLV]
 GO
 ALTER TABLE [dbo].[CongDoan] ADD  DEFAULT ([dbo].[AUTO_maCD]()) FOR [maCD]
-GO
+GO 
 ALTER TABLE [dbo].[CongNhan] ADD  DEFAULT ([dbo].[AUTO_maCN]()) FOR [maCN]
 GO
 ALTER TABLE [dbo].[LuongCongNhan] ADD  DEFAULT ([dbo].[AUTO_maLuongCN]()) FOR [maLuongCN]
@@ -2105,57 +2118,57 @@ GO
 ALTER TABLE [dbo].[SanPham] ADD  DEFAULT ([dbo].[AUTO_maSP]()) FOR [maSP]
 GO
 ALTER TABLE [dbo].[CongDoan]  WITH CHECK ADD  CONSTRAINT [FK_CongDoan_SanPham] FOREIGN KEY([maSP])
-REFERENCES [dbo].[SanPham] ([maSP])
+REFERENCES [dbo].[SanPham] ([maSP]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[CongDoan] CHECK CONSTRAINT [FK_CongDoan_SanPham]
 GO
 ALTER TABLE [dbo].[CongNhan]  WITH CHECK ADD  CONSTRAINT [FK_CongNhan_PhongBan] FOREIGN KEY([maPB])
-REFERENCES [dbo].[PhongBan] ([maPB])
+REFERENCES [dbo].[PhongBan] ([maPB]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[CongNhan] CHECK CONSTRAINT [FK_CongNhan_PhongBan]
 GO
 ALTER TABLE [dbo].[LuongCongNhan]  WITH CHECK ADD  CONSTRAINT [FK_LuongCongNhan_CongNhan] FOREIGN KEY([maCN])
-REFERENCES [dbo].[CongNhan] ([maCN])
+REFERENCES [dbo].[CongNhan] ([maCN]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[LuongCongNhan] CHECK CONSTRAINT [FK_LuongCongNhan_CongNhan]
 GO
 ALTER TABLE [dbo].[LuongNVHC]  WITH CHECK ADD  CONSTRAINT [FK_LuongNVHC_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[LuongNVHC] CHECK CONSTRAINT [FK_LuongNVHC_NhanVienHanhChanh]
 GO
 ALTER TABLE [dbo].[NhanVienHanhChach]  WITH CHECK ADD  CONSTRAINT [FK_NhanVienHanhChanh_PhongBan] FOREIGN KEY([maPB])
-REFERENCES [dbo].[PhongBan] ([maPB])
+REFERENCES [dbo].[PhongBan] ([maPB]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[NhanVienHanhChach] CHECK CONSTRAINT [FK_NhanVienHanhChanh_PhongBan]
 GO
 ALTER TABLE [dbo].[PhieuChamCongCN]  WITH CHECK ADD  CONSTRAINT [FK_PhieuChamCongCN_PhieuPhanCong] FOREIGN KEY([maPPC])
-REFERENCES [dbo].[PhieuPhanCong] ([maPPC])
+REFERENCES [dbo].[PhieuPhanCong] ([maPPC]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuChamCongCN] CHECK CONSTRAINT [FK_PhieuChamCongCN_PhieuPhanCong]
 GO
 ALTER TABLE [dbo].[PhieuChamCongNVHC]  WITH CHECK ADD  CONSTRAINT [FK_PhieuChamCongNVHC_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuChamCongNVHC] CHECK CONSTRAINT [FK_PhieuChamCongNVHC_NhanVienHanhChanh]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CaLamViec] FOREIGN KEY([maCLV])
-REFERENCES [dbo].[CaLamViec] ([maCLV])
+REFERENCES [dbo].[CaLamViec] ([maCLV]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CaLamViec]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CongDoan] FOREIGN KEY([maCD])
-REFERENCES [dbo].[CongDoan] ([maCD])
+REFERENCES [dbo].[CongDoan] ([maCD]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CongDoan]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CongNhan] FOREIGN KEY([maCN])
-REFERENCES [dbo].[CongNhan] ([maCN])
+REFERENCES [dbo].[CongNhan] ([maCN]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CongNhan]
 GO
 ALTER TABLE [dbo].[TaiKhoan]  WITH CHECK ADD  CONSTRAINT [FK_TaiKhoan_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[TaiKhoan] CHECK CONSTRAINT [FK_TaiKhoan_NhanVienHanhChanh]
 GO
