@@ -7,29 +7,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.SwingConstants;
-import java.awt.Window.Type;
-import java.awt.Dialog.ModalExclusionType;
 import java.awt.Color;
-import javax.swing.UIManager;
-import java.awt.SystemColor;
-import javax.swing.JSlider;
-import javax.swing.JSeparator;
 import java.awt.Font;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
-import javax.swing.Action;
 
 public class GD_Chinh_demoSon implements ActionListener{
 
