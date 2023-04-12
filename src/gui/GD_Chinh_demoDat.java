@@ -217,6 +217,14 @@ public class GD_Chinh_demoDat implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
+		if (o.equals(mni_ChamCongCN)) {
+			try {
+				tabbedPane.add("Chấm công Công nhân", pn_TimKiemCN = new Pn_ChamCongCongNhan());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 	}
 
 }

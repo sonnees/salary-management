@@ -27,7 +27,7 @@ import entity.ETrinhDo;
 import entity.NhanVienHanhChanh;
 import entity.PhongBan;
 import model.TableModel_CongNhan;
-
+import model.TableModel_DShanCongCongNhan;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDayChooser;
@@ -90,7 +90,6 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 	private List<CongNhan> listCongNhan = daoCongNhan.layDS_CongNhan();
 	private TableModel_CongNhan tableModel_CongNhan;
 	
-	private String[] tenPhongBan= {"Ban Sản Xuất 1","Ban Sản Xuất 2","Ban Sản Xuất 3"};
 
 	/**
 	 * Create the panel.
@@ -150,7 +149,7 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 		add(txt_SoDienThoai);
 
 		cmb_PhongBan = new JComboBox();
-		cmb_PhongBan.setModel(new DefaultComboBoxModel(layDS_PhongBanChoCongNhan()));
+		cmb_PhongBan.setModel(new DefaultComboBoxModel(layDS_PhongBanChoCongNhan().toArray()));
 		cmb_PhongBan.setBackground(Color.WHITE);
 		cmb_PhongBan.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmb_PhongBan.setBounds(835, 131, 365, 32);
@@ -159,7 +158,7 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 		cmb_GioiTinh = new JComboBox();
 		cmb_GioiTinh.setBackground(Color.WHITE);
 		cmb_GioiTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cmb_GioiTinh.setModel(new DefaultComboBoxModel(new String[] {"Nam", "Nữ" }));
+		cmb_GioiTinh.setModel(new DefaultComboBoxModel(new String[] { "Nam", "Nữ" }));
 		cmb_GioiTinh.setBounds(253, 96, 94, 32);
 		add(cmb_GioiTinh);
 
@@ -284,14 +283,15 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 				dch_NgaySinh.setDate(cn.getNgaySinh() != null ? java.sql.Date.valueOf(cn.getNgaySinh()) : null);
 				txt_DiaChi.setText(cn.getDiaChi() != null ? cn.getDiaChi() : "");
 				txt_SoDienThoai.setText(cn.getSoDienThoai() != null ? cn.getSoDienThoai() : "");
-				
-				int temp = 0;
-				for (String i : tenPhongBan) {
-					if (cn.getPhongBan().getTenPB().equals(i)) {
-						cmb_PhongBan.setSelectedIndex(temp);
+
+				List<String> a = layDS_PhongBanChoCongNhan();
+				int n = 0;
+				for (String sp : a) {
+					if (sp.equalsIgnoreCase(cn.getPhongBan().getTenPB())) {
+						cmb_PhongBan.setSelectedIndex(n);
 						break;
 					}
-					temp += 1;
+					n++;
 				}
 			}
 		});
@@ -348,7 +348,7 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 			CongNhan cn = new CongNhan();
 			CongNhan cnCu = listCongNhan.get(index);
 			try {
-				cn = new CongNhan(cnCu.getMaCN(),txt_Ten.getText().strip(), layIsGioiTinh(),
+				cn = new CongNhan(cnCu.getMaCN(), txt_Ten.getText().strip(), layIsGioiTinh(),
 						dch_NgaySinh.getDate() != null
 								? LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(dch_NgaySinh.getDate()))
 								: null,
@@ -366,17 +366,16 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 			} catch (SQLException e2) {
 				e2.printStackTrace();
 			}
-			String thayDoi= layThayDoi(cnCu,cn);
-			if(thayDoi.equals("")) {
-				JOptionPane.showMessageDialog(this, "Không có sự thay đổi mới nào!","Phần Mềm Tính Lương", 2);
+			String thayDoi = layThayDoi(cnCu, cn);
+			if (thayDoi.equals("")) {
+				JOptionPane.showMessageDialog(this, "Không có sự thay đổi mới nào!", "Phần Mềm Tính Lương", 2);
 				return;
 			}
-			int i = JOptionPane.showConfirmDialog(
-					this, "Sửa thông tin công nhân có mã '"
-							+ cnCu.getMaCN()+ "':\n"+thayDoi, "Phần Mềm Tính Lương", 2);
-			if(i==0) {
-				boolean rs= daoCongNhan.suaCongNhan(cn);
-				if(rs) {
+			int i = JOptionPane.showConfirmDialog(this,
+					"Sửa thông tin công nhân có mã '" + cnCu.getMaCN() + "':\n" + thayDoi, "Phần Mềm Tính Lương", 2);
+			if (i == 0) {
+				boolean rs = daoCongNhan.suaCongNhan(cn);
+				if (rs) {
 					JOptionPane.showMessageDialog(this, "Sửa thành công!", "Phần Mềm Tính Lương", 1);
 					try {
 						listCongNhan = daoCongNhan.layDS_CongNhan();
@@ -384,8 +383,7 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 						e1.printStackTrace();
 					}
 					capNhatBang();
-				}
-				else
+				} else
 					JOptionPane.showMessageDialog(this, "Sửa thất bại!", "Phần Mềm Tính Lương", 1);
 			}
 		} else if (o.equals(btn_Them)) {
@@ -441,25 +439,29 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 
 	private String layThayDoi(CongNhan cnCu, CongNhan cnMoi) {
 		String thayDoi = "";
-		if(!cnCu.getTenCN().equals(cnMoi.getTenCN()))
-			thayDoi += "    *Tên nhân viên: '"+cnCu.getTenCN()+"' thành '"+cnMoi.getTenCN()+"'\n";
-		if(cnCu.isGioiTinh()!=cnMoi.isGioiTinh())
-			thayDoi += "    *Giới tính: '"+(cnCu.isGioiTinh()==false?"Nam":"Nữ")+"' thành '"+(cnMoi.isGioiTinh()==false?"Nam":"Nữ")+"'\n";
-		if(cnCu.getNgaySinh().compareTo(cnMoi.getNgaySinh())!=0)
-			thayDoi += "    *Ngày sinh: '"+new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(cnCu.getNgaySinh()))+"' thành '"+new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(cnMoi.getNgaySinh()))+"'\n";
-		if(!cnCu.getDiaChi().equals(cnMoi.getDiaChi()))
-			thayDoi += "    *Địa chỉ: '"+cnCu.getDiaChi()+"' thành '"+cnMoi.getDiaChi()+"'\n";
-		if(!cnCu.getSoDienThoai().equals(cnMoi.getSoDienThoai()))
-			thayDoi += "    *Số điện thoại: '"+cnCu.getSoDienThoai()+"' thành '"+cnMoi.getSoDienThoai()+"'\n";
-		if(!cnCu.getPhongBan().getMaPB().equals(cnMoi.getPhongBan().getMaPB()))
-			thayDoi += "    *Phòng ban: '"+cnCu.getPhongBan().getTenPB()+"' thành '"+cnMoi.getPhongBan().getTenPB()+"'\n";
+		if (!cnCu.getTenCN().equals(cnMoi.getTenCN()))
+			thayDoi += "    *Tên nhân viên: '" + cnCu.getTenCN() + "' thành '" + cnMoi.getTenCN() + "'\n";
+		if (cnCu.isGioiTinh() != cnMoi.isGioiTinh())
+			thayDoi += "    *Giới tính: '" + (cnCu.isGioiTinh() == false ? "Nam" : "Nữ") + "' thành '"
+					+ (cnMoi.isGioiTinh() == false ? "Nam" : "Nữ") + "'\n";
+		if (cnCu.getNgaySinh().compareTo(cnMoi.getNgaySinh()) != 0)
+			thayDoi += "    *Ngày sinh: '" + new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(cnCu.getNgaySinh()))
+					+ "' thành '" + new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(cnMoi.getNgaySinh()))
+					+ "'\n";
+		if (!cnCu.getDiaChi().equals(cnMoi.getDiaChi()))
+			thayDoi += "    *Địa chỉ: '" + cnCu.getDiaChi() + "' thành '" + cnMoi.getDiaChi() + "'\n";
+		if (!cnCu.getSoDienThoai().equals(cnMoi.getSoDienThoai()))
+			thayDoi += "    *Số điện thoại: '" + cnCu.getSoDienThoai() + "' thành '" + cnMoi.getSoDienThoai() + "'\n";
+		if (!cnCu.getPhongBan().getMaPB().equals(cnMoi.getPhongBan().getMaPB()))
+			thayDoi += "    *Phòng ban: '" + cnCu.getPhongBan().getTenPB() + "' thành '"
+					+ cnMoi.getPhongBan().getTenPB() + "'\n";
 		return thayDoi;
 	}
 
 	private PhongBan layPhongBan() throws SQLException {
 		Dao_PhongBan phongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
 
-		String tenPB = (String)layDS_PhongBanChoCongNhan() [cmb_PhongBan.getSelectedIndex()];
+		String tenPB = (String) layDS_PhongBanChoCongNhan().toArray()[cmb_PhongBan.getSelectedIndex()];
 
 		return phongBan.timKiemPhongBanBangTen(tenPB);
 	}
@@ -496,12 +498,12 @@ public class Pn_ChinhSuaCongNhan extends JPanel implements ActionListener, Prope
 		tbl_CongNhan.updateUI();
 	}
 
-	private Object[] layDS_PhongBanChoCongNhan() throws SQLException {
+	private List<String> layDS_PhongBanChoCongNhan() throws SQLException {
 		Dao_PhongBan dao_PhongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
 		List<String> list = new ArrayList<String>();
-		dao_PhongBan.layDS_PhongBanChoCongNhan().forEach(i ->list.add(i.getTenPB()));
+		dao_PhongBan.layDS_PhongBanChoCongNhan().forEach(i -> list.add(i.getTenPB()));
 
-		return list.toArray() ;
+		return list;
 	}
 
 	@Override
