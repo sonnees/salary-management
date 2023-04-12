@@ -11,22 +11,23 @@ import entity.CongNhan;
 import entity.PhieuChamCongCN;
 import entity.PhieuPhanCong;
 
-public class TableModel_DSCongNhanPhanCong extends AbstractTableModel {
+public class TableModel_DShanCongCongNhan extends AbstractTableModel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int maCN = 0;
-	private static final int tenCN = 1;
-	private static final int caLamViec = 2;
-	private static final int sanPham = 3;
-	private static final int congDoan = 4;
-	private static final int ngayPhanCong = 5;
+	private static final int maPPC=0;
+	private static final int maCN = 1;
+	private static final int tenCN = 2;
+	private static final int caLamViec = 3;
+	private static final int sanPham = 4;
+	private static final int congDoan = 5;
+	private static final int ngayPhanCong = 6;
 	private List<PhieuPhanCong> list;
 	private String[] headLine;
 
-	public TableModel_DSCongNhanPhanCong(List<PhieuPhanCong> list, String[] headLine) {
+	public TableModel_DShanCongCongNhan(List<PhieuPhanCong> list, String[] headLine) {
 		super();
 		this.list = list;
 		this.headLine = headLine;
@@ -51,12 +52,14 @@ public class TableModel_DSCongNhanPhanCong extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		PhieuPhanCong p = list.get(rowIndex);
 		switch (columnIndex) {
+		case maPPC:
+			return p.getMaPPC();
 		case maCN:
 			return p.getCongNhan().getMaCN();
 		case tenCN:
 			return p.getCongNhan().getTenCN();
 		case caLamViec:
-			return p.getCaLamViec().layThoiGian();
+			return p.getCaLamViec().layTenCa();
 		case sanPham:
 			return p.getCongDoan().getSanPham().getTenSP();
 		case congDoan:
