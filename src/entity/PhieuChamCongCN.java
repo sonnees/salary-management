@@ -14,6 +14,12 @@ public class PhieuChamCongCN {
 		this.soLuong = soLuong;
 		this.phieuPhanCong = phieuPhanCong;
 	}
+	
+	public PhieuChamCongCN(int soLuong, PhieuPhanCong phieuPhanCong) {
+		super();
+		this.soLuong = soLuong;
+		this.phieuPhanCong = phieuPhanCong;
+	}
 	public String getMaPCCCN() {
 		return maPCCCN;
 	}

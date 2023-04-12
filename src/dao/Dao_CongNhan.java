@@ -52,7 +52,7 @@ public class Dao_CongNhan {
 			j += 1;
 		}
 		if (!tenCN.equals("")) {
-			map.put("tenCN", "N" + tenCN + "'");
+			map.put("tenCN", "N'" + tenCN + "'");
 			j += 1;
 		}
 
@@ -74,7 +74,7 @@ public class Dao_CongNhan {
 		else {
 			map.entrySet().forEach(i -> {
 				if (j > 0) {
-					dieuKien += i.getKey() + " = " + i.getValue();
+					dieuKien += i.getKey() + " like " + i.getValue();
 					j--;
 					if (j > 0)
 						dieuKien += " and ";
@@ -128,7 +128,20 @@ public class Dao_CongNhan {
 		return null;
 
 	}
+	public CongNhan timKiemCongNhanBangTen(String ten) throws SQLException {
+		String sql = "Select * from CongNhan where tenCN like N'" + ten + "'";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			CongNhan cn = new CongNhan(rs.getString("maCN"), rs.getString("tenCN"), rs.getBoolean("gioiTinh"),
+					rs.getDate("ngaySinh") != null ? LocalDate.parse(rs.getDate("ngaySinh").toString()) : null,
+					rs.getString("diaChi"), rs.getString("soDienThoai"),
+					dao_PhongBan.timKiemPhongBanBangMa(rs.getString("maPB")));
+			return cn;
+		}
+		return null;
 
+	}
 	public boolean xoaCongNhan(String ma) {
 		int n = 0;
 		try {

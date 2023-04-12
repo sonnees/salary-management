@@ -150,7 +150,7 @@ public class Pn_TimKiemCongNhan extends JPanel implements ActionListener, Proper
 		add(txt_SoDienThoai);
 
 		cmb_PhongBan = new JComboBox();
-		cmb_PhongBan.setModel(new DefaultComboBoxModel(layDS_PhongBan()));
+		cmb_PhongBan.setModel(new DefaultComboBoxModel(layDS_PhongBanChoCongNhan()));
 		cmb_PhongBan.setBackground(Color.WHITE);
 		cmb_PhongBan.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmb_PhongBan.setBounds(253, 167, 733, 32);
@@ -294,7 +294,7 @@ public class Pn_TimKiemCongNhan extends JPanel implements ActionListener, Proper
 	private PhongBan layPhongBan() throws SQLException {
 		Dao_PhongBan phongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
 
-		String tenPB = (String) layDS_PhongBan()[cmb_PhongBan.getSelectedIndex()];
+		String tenPB = (String) layDS_PhongBanChoCongNhan()[cmb_PhongBan.getSelectedIndex()];
 
 		return phongBan.timKiemPhongBanBangTen(tenPB);
 	}
@@ -326,11 +326,11 @@ public class Pn_TimKiemCongNhan extends JPanel implements ActionListener, Proper
 
 	}
 
-	private Object[] layDS_PhongBan() throws SQLException {
+	private Object[] layDS_PhongBanChoCongNhan() throws SQLException {
 		Dao_PhongBan dao_PhongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
 		List<String> list = new ArrayList<String>();
 		list.add("null");
-		dao_PhongBan.layDS_PhongBan().forEach(i -> list.add(i.getTenPB()));
+		dao_PhongBan.layDS_PhongBanChoCongNhan().forEach(i -> list.add(i.getTenPB()));
 
 		return list.toArray();
 	}
