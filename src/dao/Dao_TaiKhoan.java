@@ -10,10 +10,10 @@ import entity.TaiKhoan;
 
 public class Dao_TaiKhoan {
 	private Connection con;
-//	private Dao_NhanVienHanhChanh dao_NhanVienHanhChanh;
+	private Dao_NhanVienHanhChanh dao_NhanVienHanhChanh;
 	public Dao_TaiKhoan(Connection con) {
 		this.con = con;
-//		dao_NhanVienHanhChanh = new Dao_NhanVienHanhChanh(con);
+		dao_NhanVienHanhChanh = new Dao_NhanVienHanhChanh(con);
 	}
 	
 	public TaiKhoan timKiemTaiKhoanBangGmail(String gmail) throws SQLException {
@@ -27,7 +27,7 @@ public class Dao_TaiKhoan {
 					rs.getString("gmail"),
 					rs.getString("matKhau"),
 					rs.getString("vaiTro"),
-					null
+					dao_NhanVienHanhChanh.timKiemByMaNVHC(rs.getString("maNVHC"))
 					);
 		}
 		return tk;

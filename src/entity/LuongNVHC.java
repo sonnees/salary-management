@@ -2,87 +2,148 @@ package entity;
 
 public class LuongNVHC {
 	private String maLuongNVHC;
-	private int thang;
-	private int nam;
 	private NhanVienHanhChanh nvhc;
-
-	public LuongNVHC() {
+	private String luongThang;
+	private long luongCoBan;
+	private long luongNgay;
+	private int soNgayDiLam;
+	private int soNgayNghiCoPhep;
+	private int soNgayNghiKhongPhep;
+	private int soNgayTangCa;
+	private int soNgayLamChuNhat;
+	private int soNgayDuocTinhLuong;
+	private long tongLuongCoBan;
+	private long tongLuongThem;
+	private long thanhLuong;
+	public LuongNVHC(NhanVienHanhChanh nvhc, String luongThang, long luongCoBan, long luongNgay, int soNgayDiLam,
+			int soNgayNghiCoPhep, int soNgayNghiKhongPhep, int soNgayTangCa, int soNgayLamChuNhat,
+			int soNgayDuocTinhLuong, long tongLuongCoBan, long tongLuongThem, long thanhLuong) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.nvhc = nvhc;
+		this.luongThang = luongThang;
+		this.luongCoBan = luongCoBan;
+		this.luongNgay = luongNgay;
+		this.soNgayDiLam = soNgayDiLam;
+		this.soNgayNghiCoPhep = soNgayNghiCoPhep;
+		this.soNgayNghiKhongPhep = soNgayNghiKhongPhep;
+		this.soNgayTangCa = soNgayTangCa;
+		this.soNgayLamChuNhat = soNgayLamChuNhat;
+		this.soNgayDuocTinhLuong = soNgayDuocTinhLuong;
+		this.tongLuongCoBan = tongLuongCoBan;
+		this.tongLuongThem = tongLuongThem;
+		this.thanhLuong = thanhLuong;
 	}
-
-	public LuongNVHC(String maLuongNVHC, int thang, int nam, NhanVienHanhChanh nvhc) {
+	public LuongNVHC(String maLuongNVHC, NhanVienHanhChanh nvhc, String luongThang, long luongCoBan, long luongNgay,
+			int soNgayDiLam, int soNgayNghiCoPhep, int soNgayNghiKhongPhep, int soNgayTangCa, int soNgayLamChuNhat,
+			int soNgayDuocTinhLuong, long tongLuongCoBan, long tongLuongThem, long thanhLuong) {
 		super();
 		this.maLuongNVHC = maLuongNVHC;
-		this.thang = thang;
-		this.nam = nam;
 		this.nvhc = nvhc;
+		this.luongThang = luongThang;
+		this.luongCoBan = luongCoBan;
+		this.luongNgay = luongNgay;
+		this.soNgayDiLam = soNgayDiLam;
+		this.soNgayNghiCoPhep = soNgayNghiCoPhep;
+		this.soNgayNghiKhongPhep = soNgayNghiKhongPhep;
+		this.soNgayTangCa = soNgayTangCa;
+		this.soNgayLamChuNhat = soNgayLamChuNhat;
+		this.soNgayDuocTinhLuong = soNgayDuocTinhLuong;
+		this.tongLuongCoBan = tongLuongCoBan;
+		this.tongLuongThem = tongLuongThem;
+		this.thanhLuong = thanhLuong;
 	}
-
 	public String getMaLuongNVHC() {
 		return maLuongNVHC;
 	}
-
-	public int getThang() {
-		return thang;
+	public void setMaLuongNVHC(String maLuongNVHC) {
+		this.maLuongNVHC = maLuongNVHC;
 	}
-
-	public void setThang(int thang) {
-		if (thang > 12 || thang < 1)
-			System.err.println("Tháng nằm trong khoảng [1-12]");
-		this.thang = thang;
-	}
-
-	public int getNam() {
-		return nam;
-	}
-
-	public void setNam(int nam) {
-		if (nam <= 1900)
-			System.err.println("Năm là số trươc năm 1900");
-		this.nam = nam;
-	}
-
 	public NhanVienHanhChanh getNvhc() {
 		return nvhc;
 	}
-
 	public void setNvhc(NhanVienHanhChanh nvhc) {
 		this.nvhc = nvhc;
 	}
-
-	public long layLuongNVHC() {
-		return 0;
+	public String getLuongThang() {
+		return luongThang;
 	}
-
+	public void setLuongThang(String luongThang) {
+		this.luongThang = luongThang;
+	}
+	public long getLuongCoBan() {
+		return luongCoBan;
+	}
+	public void setLuongCoBan(long luongCoBan) {
+		this.luongCoBan = luongCoBan;
+	}
+	public long getLuongNgay() {
+		return luongNgay;
+	}
+	public void setLuongNgay(long luongNgay) {
+		this.luongNgay = luongNgay;
+	}
+	public int getsoNgayDiLam() {
+		return soNgayDiLam;
+	}
+	public void setsoNgayDiLam(int soNgayDiLam) {
+		this.soNgayDiLam = soNgayDiLam;
+	}
+	public int getSoNgayNghiCoPhep() {
+		return soNgayNghiCoPhep;
+	}
+	public void setSoNgayNghiCoPhep(int soNgayNghiCoPhep) {
+		this.soNgayNghiCoPhep = soNgayNghiCoPhep;
+	}
+	public int getSoNgayNghiKhongPhep() {
+		return soNgayNghiKhongPhep;
+	}
+	public void setSoNgayNghiKhongPhep(int soNgayNghiKhongPhep) {
+		this.soNgayNghiKhongPhep = soNgayNghiKhongPhep;
+	}
+	public int getSoNgayTangCa() {
+		return soNgayTangCa;
+	}
+	public void setSoNgayTangCa(int soNgayTangCa) {
+		this.soNgayTangCa = soNgayTangCa;
+	}
+	public int getSoNgayLamChuNhat() {
+		return soNgayLamChuNhat;
+	}
+	public void setSoNgayLamChuNhat(int soNgayLamChuNhat) {
+		this.soNgayLamChuNhat = soNgayLamChuNhat;
+	}
+	public int getSoNgayDuocTinhLuong() {
+		return soNgayDuocTinhLuong;
+	}
+	public void setSoNgayDuocTinhLuong(int soNgayDuocTinhLuong) {
+		this.soNgayDuocTinhLuong = soNgayDuocTinhLuong;
+	}
+	public long getTongLuongCoBan() {
+		return tongLuongCoBan;
+	}
+	public void setTongLuongCoBan(long tongLuongCoBan) {
+		this.tongLuongCoBan = tongLuongCoBan;
+	}
+	public long getTongLuongThem() {
+		return tongLuongThem;
+	}
+	public void setTongLuongThem(long tongLuongThem) {
+		this.tongLuongThem = tongLuongThem;
+	}
+	public long getThanhLuong() {
+		return thanhLuong;
+	}
+	public void setThanhLuong(long thanhLuong) {
+		this.thanhLuong = thanhLuong;
+	}
 	@Override
 	public String toString() {
-		return "LuongNVHC [maLuongNVHC=" + maLuongNVHC + ", thang=" + thang + ", nam=" + nam + ", nvhc=" + nvhc + "]";
+		return "LuongNVHC [maLuongNVHC=" + maLuongNVHC + ", nvhc=" + nvhc + ", luongThang=" + luongThang
+				+ ", luongCoBan=" + luongCoBan + ", luongNgay=" + luongNgay + ", soNgayDiLam=" + soNgayDiLam
+				+ ", soNgayNghiCoPhep=" + soNgayNghiCoPhep + ", soNgayNghiKhongPhep=" + soNgayNghiKhongPhep
+				+ ", soNgayTangCa=" + soNgayTangCa + ", soNgayLamChuNhat=" + soNgayLamChuNhat + ", soNgayDuocTinhLuong="
+				+ soNgayDuocTinhLuong + ", tongLuongCoBan=" + tongLuongCoBan + ", tongLuongThem=" + tongLuongThem
+				+ ", thanhLuong=" + thanhLuong + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((maLuongNVHC == null) ? 0 : maLuongNVHC.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LuongNVHC other = (LuongNVHC) obj;
-		if (maLuongNVHC == null) {
-			if (other.maLuongNVHC != null)
-				return false;
-		} else if (!maLuongNVHC.equals(other.maLuongNVHC))
-			return false;
-		return true;
-	}
-
+	
 }

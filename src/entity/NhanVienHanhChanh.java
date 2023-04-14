@@ -159,5 +159,5 @@ public class NhanVienHanhChanh {
 				+ ", chucVu=" + chucVu + ", trinhDo=" + trinhDo + ", tiengAnh=" + tiengAnh + ", luongCoBan="
 				+ luongCoBan + ", phongBan=" + phongBan + "]";
 	}
-
+	
 }
