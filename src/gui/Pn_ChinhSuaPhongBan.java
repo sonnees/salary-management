@@ -54,7 +54,6 @@ public class Pn_ChinhSuaPhongBan extends JPanel implements ActionListener{
 	 */
 	public Pn_ChinhSuaPhongBan() {
 		setLayout(null);
-		setSize(1280, 820);
 		
 		JLabel lblChinhSuaPB = new JLabel("CHỈNH SỬA PHÒNG BAN");
 		lblChinhSuaPB.setBounds(518, 11, 258, 25);
