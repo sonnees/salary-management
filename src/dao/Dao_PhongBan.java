@@ -121,17 +121,15 @@ public class Dao_PhongBan {
 		return false;
 	}
 	
-//	public List<PhongBan> layDS_PhongBanChoCongNhan() throws SQLException {
-//		List<PhongBan> list = new ArrayList<PhongBan>();
-//		String sql = "Select * from PhongBan";
-//		PreparedStatement stmt = con.prepareStatement(sql);
-//		ResultSet rs = stmt.executeQuery();
-//		while (rs.next()) {
-//			if (!rs.getString("tenPB").equals("Phòng Hành Chánh")) {
-//				PhongBan pb = new PhongBan(rs.getString("maPB"), rs.getString("tenPB"), rs.getString("phanKhu"));
-//				list.add(pb);
-//			}
-//		}
-//		return list;
-//	}
+	public List<PhongBan> layDS_PhongBanChoCongNhan() throws SQLException {
+		List<PhongBan> list = new ArrayList<PhongBan>();
+		String sql = "Select * from PhongBan where tenPB not like N'Phòng%'";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			PhongBan pb = new PhongBan(rs.getString("maPB"), rs.getString("tenPB"), rs.getString("phanKhu"));
+			list.add(pb);
+		}
+		return list;
+	}
 }
