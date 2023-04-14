@@ -1,12 +1,9 @@
-﻿--ver2603
-
+﻿--ver14/04
 CREATE DATABASE PhanMemTinhLuong_PTUD
 go
-
-
-USE PhanMemTinhLuong_PTUD
+USE [PhanMemTinhLuong_PTUD]
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maCD]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maCD]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36,7 +33,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maCLV]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maCLV]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -66,7 +63,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maCN]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maCN]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -96,7 +93,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maLuongCN]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maLuongCN]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -126,7 +123,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maLuongNVHC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maLuongNVHC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -156,7 +153,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maNVHC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maNVHC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,7 +183,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maPB]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maPB]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -216,7 +213,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maPCCCN]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maPCCCN]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -246,7 +243,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maPCCNVHC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maPCCNVHC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -276,7 +273,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maPPC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maPPC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -306,7 +303,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  UserDefinedFunction [dbo].[AUTO_maSP]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  UserDefinedFunction [dbo].[AUTO_maSP]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -336,7 +333,7 @@ BEGIN
 	RETURN @ID
 END
 GO
-/****** Object:  Table [dbo].[CaLamViec]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[CaLamViec]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -352,7 +349,7 @@ CREATE TABLE [dbo].[CaLamViec](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CongDoan]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[CongDoan]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -371,7 +368,7 @@ CREATE TABLE [dbo].[CongDoan](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CongNhan]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[CongNhan]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -390,7 +387,7 @@ CREATE TABLE [dbo].[CongNhan](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LuongCongNhan]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[LuongCongNhan]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -407,28 +404,33 @@ CREATE TABLE [dbo].[LuongCongNhan](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[LuongNVHC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[LuongNVHC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[LuongNVHC](
 	[maLuongNVHC] [char](13) NOT NULL,
-	[soNgaydiLam] [int] NULL,
+	[maNVHC] [char](12) NOT NULL,
+	[luongThang] [varchar](7) NULL,
+	[luongCoBan] [bigint] NULL,
+	[luongNgay] [bigint] NULL,
+	[soNgayDiLam] [int] NULL,
 	[soNgayNghiCoPhep] [int] NULL,
 	[soNgayNghiKhongPhep] [int] NULL,
 	[soNgayTangCa] [int] NULL,
-	[thang] [int] NULL,
-	[nam] [int] NULL,
-	[tienLuong] [bigint] NULL,
-	[maNVHC] [char](12) NOT NULL,
+	[soNgayLamChuNhat] [int] NULL,
+	[soNgayDuocTinhLuong] [int] NULL,
+	[tongLuongCoBan] [bigint] NULL,
+	[tongLuongThem] [bigint] NULL,
+	[thanhLuong] [bigint] NULL,
  CONSTRAINT [PK_LuongNVHC] PRIMARY KEY CLUSTERED 
 (
 	[maLuongNVHC] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[NhanVienHanhChach]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[NhanVienHanhChach]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -452,7 +454,7 @@ CREATE TABLE [dbo].[NhanVienHanhChach](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PhieuChamCongCN]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[PhieuChamCongCN]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -467,7 +469,7 @@ CREATE TABLE [dbo].[PhieuChamCongCN](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PhieuChamCongNVHC]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[PhieuChamCongNVHC]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -485,7 +487,7 @@ CREATE TABLE [dbo].[PhieuChamCongNVHC](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PhieuPhanCong]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[PhieuPhanCong]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -502,7 +504,7 @@ CREATE TABLE [dbo].[PhieuPhanCong](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PhongBan]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[PhongBan]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -517,7 +519,7 @@ CREATE TABLE [dbo].[PhongBan](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SanPham]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[SanPham]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -536,7 +538,7 @@ CREATE TABLE [dbo].[SanPham](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TaiKhoan]    Script Date: 26/03/2023 2:18:21 CH ******/
+/****** Object:  Table [dbo].[TaiKhoan]    Script Date: 13/04/2023 10:01:58 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -588,15 +590,15 @@ INSERT [dbo].[CongNhan] ([maCN], [tenCN], [gioiTinh], [ngaySinh], [diaChi], [soD
 GO
 INSERT [dbo].[CongNhan] ([maCN], [tenCN], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [maPB]) VALUES (N'cn_0000005', N'Trịnh Thị Thu Hà', 1, CAST(N'2000-08-17' AS Date), N'567 Lạc Long Quân, Quận Tây Hồ, TP. Hà Nội', N'0312345678', N'pb_0000003')
 GO
-INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [maPB], [luongCoBan]) VALUES (N'nvhc_0000000', N'Nguyễn Thị Mai Anh', 1, CAST(N'1995-04-15' AS Date), N'123 Nguyễn Văn Linh, Quận Thanh Khê, TP. Đà Nẵng', N'0912345678', CAST(N'2015-01-01' AS Date), N'Nhân viên kế toán', N'Dưới Đại học', N'Mức yếu', N'pb_0000000',8000000)
+INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [luongCoBan], [maPB]) VALUES (N'nvhc_0000000', N'Nguyễn Thị Mai Anh', 1, CAST(N'1995-04-15' AS Date), N'123 Nguyễn Văn Linh, Quận Thanh Khê, TP. Đà Nẵng', N'0912345678', CAST(N'2015-01-01' AS Date), N'Nhân viên kế toán', N'Dưới Đại học', N'Mức yếu', 8000000, N'pb_0000000')
 GO
-INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [maPB], [luongCoBan]) VALUES (N'nvhc_0000001', N'Trần Văn Hưng', 0, CAST(N'1994-12-02' AS Date), N'456 Nguyễn Hữu Thọ, Quận 7, TP. Hồ Chí Minh', N'0912345678', CAST(N'2017-09-15' AS Date), N'Nhân viên marketing', N'Đại học', N'Mức khá', N'pb_0000000',12000000)
+INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [luongCoBan], [maPB]) VALUES (N'nvhc_0000001', N'Trần Văn Hưng', 0, CAST(N'1994-12-02' AS Date), N'456 Nguyễn Hữu Thọ, Quận 7, TP. Hồ Chí Minh', N'0912345678', CAST(N'2017-09-15' AS Date), N'Nhân viên marketing', N'Đại học', N'Mức khá', 12000000, N'pb_0000000')
 GO
-INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [maPB], [luongCoBan]) VALUES (N'nvhc_0000002', N'Lê Thị Thanh Tuyền', 1, CAST(N'1996-10-02' AS Date), N'789 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh', N'0312345678', CAST(N'2016-05-11' AS Date), N'Nhân viên IT', N'Trên Đại học', N'Mức khá', N'pb_0000000',9000000)
+INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [luongCoBan], [maPB]) VALUES (N'nvhc_0000002', N'Lê Thị Thanh Tuyền', 1, CAST(N'1996-10-02' AS Date), N'789 Trần Hưng Đạo, Quận 1, TP. Hồ Chí Minh', N'0312345678', CAST(N'2016-05-11' AS Date), N'Nhân viên IT', N'Trên Đại học', N'Mức khá', 9000000, N'pb_0000000')
 GO
-INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [maPB], [luongCoBan]) VALUES (N'nvhc_0000003', N'Phạm Văn An', 0, CAST(N'1997-03-22' AS Date), N'234 Hoàng Quốc Việt, Quận Cầu Giấy, TP. Hà Nội', N'0312345678', CAST(N'2017-12-13' AS Date), N'Nhân viên chăm sóc khách hàng', N'Đại học', N'Mức giỏi', N'pb_0000000',10000000)
+INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [luongCoBan], [maPB]) VALUES (N'nvhc_0000003', N'Phạm Văn An', 0, CAST(N'1997-03-22' AS Date), N'234 Hoàng Quốc Việt, Quận Cầu Giấy, TP. Hà Nội', N'0312345678', CAST(N'2017-12-13' AS Date), N'Nhân viên chăm sóc khách hàng', N'Đại học', N'Mức giỏi', 10000000, N'pb_0000000')
 GO
-INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [maPB], [luongCoBan]) VALUES (N'nvhc_0000004', N'Nguyễn Thanh Huyền', 1, CAST(N'1996-03-22' AS Date), N'234 Hoàng Quốc Việt, Quận Cầu Giấy, TP. Hà Nội', N'0312345678', CAST(N'2014-11-03' AS Date), N'Nhân viên nhân sự', N'Trên Đại học', N'Mức giỏi', N'pb_0000000',8000000)
+INSERT [dbo].[NhanVienHanhChach] ([maNVHC], [tenNVHC], [gioiTinh], [ngaySinh], [diaChi], [soDienThoai], [ngayTGCT], [chucVu], [trinhDo], [tiengAnh], [luongCoBan], [maPB]) VALUES (N'nvhc_0000004', N'Nguyễn Thanh Huyền', 1, CAST(N'1996-03-22' AS Date), N'234 Hoàng Quốc Việt, Quận Cầu Giấy, TP. Hà Nội', N'0312345678', CAST(N'2014-11-03' AS Date), N'Nhân viên nhân sự', N'Trên Đại học', N'Mức giỏi', 8000000, N'pb_0000000')
 GO
 INSERT [dbo].[PhieuChamCongCN] ([maPCCCN], [soLuong], [maPPC]) VALUES (N'pcccn_0000000', 20, N'ppc_0000000')
 GO
@@ -1198,7 +1200,7 @@ INSERT [dbo].[PhieuChamCongCN] ([maPCCCN], [soLuong], [maPPC]) VALUES (N'pcccn_0
 GO
 INSERT [dbo].[PhieuChamCongCN] ([maPCCCN], [soLuong], [maPPC]) VALUES (N'pcccn_0000299', 20, N'ppc_0000299')
 GO
-INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000000', 0, CAST(N'2023-02-01' AS Date), N'Có mặt', N'', N'nvhc_0000000')
+INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000000', 1, CAST(N'2023-02-01' AS Date), N'Có mặt', N'', N'nvhc_0000000')
 GO
 INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000001', 0, CAST(N'2023-02-02' AS Date), N'Có mặt', N'', N'nvhc_0000000')
 GO
@@ -1212,7 +1214,7 @@ INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai]
 GO
 INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000006', 0, CAST(N'2023-02-07' AS Date), N'Có mặt', N'', N'nvhc_0000000')
 GO
-INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000007', 0, CAST(N'2023-02-08' AS Date), N'Có mặt', N'', N'nvhc_0000000')
+INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000007', 1, CAST(N'2023-02-08' AS Date), N'Có mặt', N'', N'nvhc_0000000')
 GO
 INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000008', 0, CAST(N'2023-02-09' AS Date), N'Có mặt', N'', N'nvhc_0000000')
 GO
@@ -1462,7 +1464,7 @@ INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai]
 GO
 INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000131', 0, CAST(N'2023-02-20' AS Date), N'Có mặt', N'', N'nvhc_0000004')
 GO
-INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000132', 0, CAST(N'2023-02-21' AS Date), N'Có mặt', N'', N'nvhc_0000004')
+INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000132', 1, CAST(N'2023-02-21' AS Date), N'Có mặt', N'', N'nvhc_0000004')
 GO
 INSERT [dbo].[PhieuChamCongNVHC] ([maPCCNVHC], [tangCa], [ngayCham], [trangThai], [lyDo], [maNVHC]) VALUES (N'pccnvhc_0000133', 0, CAST(N'2023-02-22' AS Date), N'Vắng không phép', N'', N'nvhc_0000004')
 GO
@@ -2086,24 +2088,25 @@ INSERT [dbo].[PhongBan] ([maPB], [tenPB], [phanKhu]) VALUES (N'pb_0000002', N'Ba
 GO
 INSERT [dbo].[PhongBan] ([maPB], [tenPB], [phanKhu]) VALUES (N'pb_0000003', N'Ban Sản Xuất 3', N'Phân xưởng 3')
 GO
-INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc],[hoanThanh]) VALUES (N'sp_0000000', N'Dép cao su', N'Đôi', 2000, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date),1)
+INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc], [hoanThanh]) VALUES (N'sp_0000000', N'Dép cao su', N'Đôi', 2000, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date), 1)
 GO
-INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc],[hoanThanh]) VALUES (N'sp_0000001', N'Dép da tổng hợp', N'Đôi', 2500, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date),0)
+INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc], [hoanThanh]) VALUES (N'sp_0000001', N'Dép da tổng hợp', N'Đôi', 2500, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date), 0)
 GO
-INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc],[hoanThanh]) VALUES (N'sp_0000002', N'Dép tổ ong', N'Đôi', 1900, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date),0)
+INSERT [dbo].[SanPham] ([maSP], [tenSP], [donViTinh], [soLuong], [ngayBatDau], [ngayKetThuc], [hoanThanh]) VALUES (N'sp_0000002', N'Dép tổ ong', N'Đôi', 1900, CAST(N'2023-03-10' AS Date), CAST(N'2023-03-10' AS Date), 0)
 GO
-INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'sson12131415@gmail.com', N'pass123', N'ADMIN', N'nvhc_0000002')
-INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'thiendat9dthcstanhai@gmail.com', N'pass123', N'ADMIN', N'nvhc_0000004')
+INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'sson12131415@gmail.com                                                                                                                                ', N'pass123                                                                                                                                               ', N'ADMIN                                                                                                                                                 ', N'nvhc_0000002')
+GO
+INSERT [dbo].[TaiKhoan] ([gmail], [matKhau], [vaiTro], [maNVHC]) VALUES (N'thiendat9dthcstanhai@gmail.com                                                                                                                        ', N'pass123                                                                                                                                               ', N'ADMIN                                                                                                                                                 ', N'nvhc_0000004')
 GO
 ALTER TABLE [dbo].[CaLamViec] ADD  CONSTRAINT [DF__CaLamViec__maCLV__2F10007B]  DEFAULT ([dbo].[AUTO_maCLV]()) FOR [maCLV]
 GO
 ALTER TABLE [dbo].[CongDoan] ADD  DEFAULT ([dbo].[AUTO_maCD]()) FOR [maCD]
-GO 
+GO
 ALTER TABLE [dbo].[CongNhan] ADD  DEFAULT ([dbo].[AUTO_maCN]()) FOR [maCN]
 GO
 ALTER TABLE [dbo].[LuongCongNhan] ADD  DEFAULT ([dbo].[AUTO_maLuongCN]()) FOR [maLuongCN]
 GO
-ALTER TABLE [dbo].[LuongNVHC] ADD  DEFAULT ([dbo].[AUTO_maLuongNVHC]()) FOR [maLuongNVHC]
+ALTER TABLE [dbo].[LuongNVHC] ADD  CONSTRAINT [DF__LuongNVHC__maLuo__47DBAE45]  DEFAULT ([dbo].[AUTO_maLuongNVHC]()) FOR [maLuongNVHC]
 GO
 ALTER TABLE [dbo].[NhanVienHanhChach] ADD  DEFAULT ([dbo].[AUTO_maNVHC]()) FOR [maNVHC]
 GO
@@ -2118,57 +2121,69 @@ GO
 ALTER TABLE [dbo].[SanPham] ADD  DEFAULT ([dbo].[AUTO_maSP]()) FOR [maSP]
 GO
 ALTER TABLE [dbo].[CongDoan]  WITH CHECK ADD  CONSTRAINT [FK_CongDoan_SanPham] FOREIGN KEY([maSP])
-REFERENCES [dbo].[SanPham] ([maSP]) ON DELETE CASCADE
+REFERENCES [dbo].[SanPham] ([maSP])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[CongDoan] CHECK CONSTRAINT [FK_CongDoan_SanPham]
 GO
 ALTER TABLE [dbo].[CongNhan]  WITH CHECK ADD  CONSTRAINT [FK_CongNhan_PhongBan] FOREIGN KEY([maPB])
-REFERENCES [dbo].[PhongBan] ([maPB]) ON DELETE CASCADE
+REFERENCES [dbo].[PhongBan] ([maPB])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[CongNhan] CHECK CONSTRAINT [FK_CongNhan_PhongBan]
 GO
 ALTER TABLE [dbo].[LuongCongNhan]  WITH CHECK ADD  CONSTRAINT [FK_LuongCongNhan_CongNhan] FOREIGN KEY([maCN])
-REFERENCES [dbo].[CongNhan] ([maCN]) ON DELETE CASCADE
+REFERENCES [dbo].[CongNhan] ([maCN])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[LuongCongNhan] CHECK CONSTRAINT [FK_LuongCongNhan_CongNhan]
 GO
 ALTER TABLE [dbo].[LuongNVHC]  WITH CHECK ADD  CONSTRAINT [FK_LuongNVHC_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[LuongNVHC] CHECK CONSTRAINT [FK_LuongNVHC_NhanVienHanhChanh]
 GO
 ALTER TABLE [dbo].[NhanVienHanhChach]  WITH CHECK ADD  CONSTRAINT [FK_NhanVienHanhChanh_PhongBan] FOREIGN KEY([maPB])
-REFERENCES [dbo].[PhongBan] ([maPB]) ON DELETE CASCADE
+REFERENCES [dbo].[PhongBan] ([maPB])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[NhanVienHanhChach] CHECK CONSTRAINT [FK_NhanVienHanhChanh_PhongBan]
 GO
 ALTER TABLE [dbo].[PhieuChamCongCN]  WITH CHECK ADD  CONSTRAINT [FK_PhieuChamCongCN_PhieuPhanCong] FOREIGN KEY([maPPC])
-REFERENCES [dbo].[PhieuPhanCong] ([maPPC]) ON DELETE CASCADE
+REFERENCES [dbo].[PhieuPhanCong] ([maPPC])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuChamCongCN] CHECK CONSTRAINT [FK_PhieuChamCongCN_PhieuPhanCong]
 GO
 ALTER TABLE [dbo].[PhieuChamCongNVHC]  WITH CHECK ADD  CONSTRAINT [FK_PhieuChamCongNVHC_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuChamCongNVHC] CHECK CONSTRAINT [FK_PhieuChamCongNVHC_NhanVienHanhChanh]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CaLamViec] FOREIGN KEY([maCLV])
-REFERENCES [dbo].[CaLamViec] ([maCLV]) ON DELETE CASCADE
+REFERENCES [dbo].[CaLamViec] ([maCLV])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CaLamViec]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CongDoan] FOREIGN KEY([maCD])
-REFERENCES [dbo].[CongDoan] ([maCD]) ON DELETE CASCADE
+REFERENCES [dbo].[CongDoan] ([maCD])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CongDoan]
 GO
 ALTER TABLE [dbo].[PhieuPhanCong]  WITH CHECK ADD  CONSTRAINT [FK_PhieuPhanCong_CongNhan] FOREIGN KEY([maCN])
-REFERENCES [dbo].[CongNhan] ([maCN]) ON DELETE CASCADE
+REFERENCES [dbo].[CongNhan] ([maCN])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[PhieuPhanCong] CHECK CONSTRAINT [FK_PhieuPhanCong_CongNhan]
 GO
 ALTER TABLE [dbo].[TaiKhoan]  WITH CHECK ADD  CONSTRAINT [FK_TaiKhoan_NhanVienHanhChanh] FOREIGN KEY([maNVHC])
-REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC]) ON DELETE CASCADE
+REFERENCES [dbo].[NhanVienHanhChach] ([maNVHC])
+ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[TaiKhoan] CHECK CONSTRAINT [FK_TaiKhoan_NhanVienHanhChanh]
 GO
+
