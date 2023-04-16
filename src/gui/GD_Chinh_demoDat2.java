@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -9,12 +10,17 @@ import javax.swing.JMenu;
 import javax.swing.SwingConstants;
 import java.awt.Window.Type;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicButtonUI;
+
 import java.awt.SystemColor;
 import javax.swing.JSlider;
 import javax.swing.JSeparator;
 import java.awt.Font;
+import java.awt.LayoutManager;
+
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JToolBar;
@@ -30,30 +36,33 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class GD_Chinh_demoDat2 implements ActionListener {
-
+	
 	private JFrame frame;
 	private JMenu mnu_CongNhan;
 	private JMenu mnuNVHC;
 	private JMenu mnuPhongBan;
 	private JMenu mnuSanPham;
 	private JMenu mnuHeThong;
-	private JPanel pn_TimKiemCN;
-	private JPanel pn_ChinhSuaCN;
 	private JMenuItem mni_TimKiemCN;
 	private JMenuItem mni_ChinhSuaCN;
 	private JMenuItem mni_ChamCongCN;
 	private JMenuItem mni_TinhLuongCN;
 	private JMenuItem mni_ThongKeCN;
 	private JMenuItem mni_PhanCongCN;
-	private JTabbedPane tabbedPane;
+	private TatTab tabbedPane;
 	private JMenuItem mni_TimKiemNVHC;
 	private JMenuItem mni_ChinhSuaNVHC;
 	private JMenuItem mni_ChamCongNVHC;
 	private JMenuItem mni_TinhLuongNVHC;
 	private JMenuItem mni_ThongKeNVHC;
-
+	private JMenuItem mni_ChinhSuaPB;
+	private JMenuItem mni_DoiMatKhau;
+	private JMenuItem mni_DangXuat;
+	private static GD_Chinh_demoDat2 window;
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +70,7 @@ public class GD_Chinh_demoDat2 implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_Chinh_demoDat2 window = new GD_Chinh_demoDat2();
+					window = new GD_Chinh_demoDat2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -158,7 +167,7 @@ public class GD_Chinh_demoDat2 implements ActionListener {
 		JMenu mnu_PhongBan = new JMenu("    Phòng ban   ");
 		mnub_top.add(mnu_PhongBan);
 
-		JMenuItem mni_ChinhSuaPB = new JMenuItem("Chỉnh sửa   ");
+		mni_ChinhSuaPB = new JMenuItem("Chỉnh sửa   ");
 		mni_ChinhSuaPB.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		mnu_PhongBan.add(mni_ChinhSuaPB);
 
@@ -180,17 +189,17 @@ public class GD_Chinh_demoDat2 implements ActionListener {
 		JMenu mnu_HeThong = new JMenu("       Hệ thống     ");
 		mnub_top.add(mnu_HeThong);
 
-		JMenuItem mni_DoiMatKhau = new JMenuItem("Đổi mật khẩu");
+		mni_DoiMatKhau = new JMenuItem("Đổi mật khẩu");
 		mni_DoiMatKhau.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		mnu_HeThong.add(mni_DoiMatKhau);
+		
+		mni_DangXuat = new JMenuItem("Đăng xuất");
+		mni_DangXuat.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+		mnu_HeThong.add(mni_DangXuat);
 
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new TatTab();
 		tabbedPane.setBounds(0, 25, 1264, 656);
 		frame.getContentPane().add(tabbedPane);
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 50, 1264, 631);
-		frame.getContentPane().add(panel_1);
 
 		mni_TimKiemCN.addActionListener(this);
 		mni_ChinhSuaCN.addActionListener(this);
@@ -199,8 +208,12 @@ public class GD_Chinh_demoDat2 implements ActionListener {
 		mni_TimKiemNVHC.addActionListener(this);
 		mni_ChinhSuaNVHC.addActionListener(this);
 		mni_ChamCongNVHC.addActionListener(this);
-		mni_ThongKeNVHC.addActionListener(this);
 		mni_TinhLuongNVHC.addActionListener(this);
+		mni_ChinhSuaPB.addActionListener(this);
+		mni_DoiMatKhau.addActionListener(this);
+		mni_DangXuat.addActionListener(this);
+		mni_ThongKeNVHC.addActionListener(this);
+		
 	}
 
 	@Override
@@ -208,29 +221,74 @@ public class GD_Chinh_demoDat2 implements ActionListener {
 		Object o = e.getSource();
 		if(o.equals(mni_TimKiemNVHC)) {
 			try {
-				tabbedPane.add("Tìm Kiếm Nhân Viên Hành Chách",pn_TimKiemCN= new Pn_TimKiemNhanVienHanhChach());
+				tabbedPane.add("Tìm Kiếm Nhân Viên Hành Chánh",new Pn_TimKiemNhanVienHanhChach());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
-		if(o.equals(mni_ChinhSuaNVHC)) {
+		else if(o.equals(mni_ChinhSuaNVHC)) {
 			try {
-				tabbedPane.add("Chỉnh Sửa Nhân Viên Hành Chách",pn_TimKiemCN= new Pn_ChinhSuaNhanVienHanhChach());
+				tabbedPane.add("Chỉnh Sửa Nhân Viên Hành Chánh",new Pn_ChinhSuaNhanVienHanhChach());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
-		if(o.equals(mni_ChamCongNVHC)) {
+		else if(o.equals(mni_ChamCongNVHC)) {
 			try {
-				tabbedPane.add("Chấm Công Nhân Viên Hành Chách",pn_TimKiemCN= new Pn_ChamCongNhanVienHanhChach());
+				tabbedPane.add("Chấm Công Nhân Viên Hành Chánh",new Pn_ChamCongNhanVienHanhChach());
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
-		if(o.equals(mni_TinhLuongNVHC)) {
+		else if(o.equals(mni_TinhLuongNVHC)) {
 			try {
-				tabbedPane.add("Tính Lương Nhân Viên Hành Chách",pn_TimKiemCN= new Pn_TinhLuongNVHC());
+				tabbedPane.add("Tính Lương Nhân Viên Hành Chánh",new Pn_TinhLuongNVHC());
 			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else if(o.equals(mni_ThongKeNVHC)) {
+			try {
+				tabbedPane.add("Thống Kê Nhân Viên Hành Chánh",new Pn_ThongKeNVHC());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else if(o.equals(mni_DangXuat)) {
+			try {
+				window.frame.setVisible(false);
+				(new GD_DangNhap()).setVisible(true);;
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		else if(o.equals(mni_TimKiemCN)) {
+			try {
+				tabbedPane.add("Tìm Kiếm Công Nhân",new Pn_TimKiemCongNhan());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else if(o.equals(mni_ChinhSuaCN)) {
+			try {
+				tabbedPane.add("Chỉnh Sửa Công Nhân",new Pn_ChinhSuaCongNhan());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		else if(o.equals(mni_ChamCongCN)) {
+			try {
+				tabbedPane.add("Chấm Công Công Nhân",new Pn_PhanCongCongNhan());
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		else if(o.equals(mni_ChinhSuaPB)) {
+			try {
+				tabbedPane.add("Chỉnh Sửa Phòng Ban",new Pn_ChinhSuaPhongBan());
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
