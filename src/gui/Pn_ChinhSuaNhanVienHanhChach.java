@@ -9,11 +9,13 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 import com.toedter.components.JLocaleChooser;
 
@@ -31,6 +33,8 @@ import model.TableModel_NhanVienHanhChanh_RutGon;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Panel;
 import java.sql.SQLException;
@@ -109,7 +113,6 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 	 */
 	public Pn_ChinhSuaNhanVienHanhChach() throws SQLException {
 		setLayout(null);
-		
 		JLabel lbl_TieuDe = new JLabel("CHỈNH SỬA NHÂN VIÊN HÀNH CHÁNH");
 		lbl_TieuDe.setBounds(10, 10, 1241, 25);
 		lbl_TieuDe.setHorizontalAlignment(SwingConstants.CENTER);
@@ -193,7 +196,7 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 		add(lbl_TiengAnh);
 		
 		cmb_TiengAnh = new JComboBox();
-		cmb_TiengAnh.setModel(new DefaultComboBoxModel(trinhDo));
+		cmb_TiengAnh.setModel(new DefaultComboBoxModel(tiengAnh));
 		cmb_TiengAnh.setBackground(Color.WHITE);
 		cmb_TiengAnh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		cmb_TiengAnh.setBounds(170, 133, 158, 32);
@@ -244,14 +247,11 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 		add(dch_NgaySinh);
 		dch_NgaySinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		
-		
 		JLabel lbl_ChucVu = new JLabel("Chức vụ");
 		lbl_ChucVu.setHorizontalAlignment(SwingConstants.LEFT);
 		lbl_ChucVu.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbl_ChucVu.setBounds(813, 62, 78, 32);
 		add(lbl_ChucVu);
-		
 	
 		cmb_ChucVu = new JComboBox();
 		cmb_ChucVu.setModel(new DefaultComboBoxModel(chuVu));
@@ -453,6 +453,14 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 			}
 		});
 		btnThem.addActionListener(this);
+		btnThem.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control ENTER"), "buttonAction");
+		btnThem.getActionMap().put("buttonAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	btnThem.doClick();
+            }
+        });
+
 	}
 
 	@SuppressWarnings("deprecation")
@@ -557,7 +565,7 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 					"Phần Mềm Tính Lương", 2);
 			if (i == 0) {
 				nv.setMaNVHC(nvCu.getMaNVHC());
-				boolean rs = daoNhanVienHanhChanh.themNhanVienHanhChach(nv);
+				boolean rs = daoNhanVienHanhChanh.suaNhanVienHanhChach(nv);
 				if(rs) {
 					JOptionPane.showMessageDialog(this, "Sửa thành công!", "Phần Mềm Tính Lương", 1);
 					try {

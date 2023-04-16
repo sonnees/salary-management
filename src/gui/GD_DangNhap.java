@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import dao.Dao_DangNhap;
 import dao.Dao_TaiKhoan;
 import db.ConnectDB;
 import entity.TaiKhoan;
@@ -171,7 +170,7 @@ public class GD_DangNhap extends JFrame implements ActionListener {
 			if(tk.getVaiTro().equals("ADMIN")) {
 				this.setVisible(false);
 				try {
-					new GD_Chinh_demoSon();
+					new GD_Chinh_demoDat2();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}

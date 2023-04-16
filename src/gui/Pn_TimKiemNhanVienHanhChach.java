@@ -7,11 +7,13 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 import com.toedter.components.JLocaleChooser;
 
@@ -27,6 +29,8 @@ import model.TableModel_NhanVienHanhChanh_RutGon;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JDateChooser;
+
+import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Panel;
 import java.sql.SQLException;
@@ -44,6 +48,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.border.EtchedBorder;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -288,7 +293,21 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 		add(txt_NgaySinh);
 		
 		btnTimKiem.addActionListener(this);
+		btnTimKiem.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control pressed F"), "myAction");
+		btnTimKiem.getActionMap().put("myAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnTimKiem.doClick();
+            }
+        });
 		btnXoaTrang.addActionListener(this);
+		btnXoaTrang.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control pressed Q"), "myAction");
+		btnXoaTrang.getActionMap().put("myAction", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	btnXoaTrang.doClick();
+            }
+        });
 		cmb_SapXep.addActionListener(this);
 		dch_NgaySinh.addPropertyChangeListener(this);
 		txt_SoDienThoai.addKeyListener(this);

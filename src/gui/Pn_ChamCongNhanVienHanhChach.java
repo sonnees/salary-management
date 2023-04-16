@@ -105,6 +105,7 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 	private JTextPane txp_LyDo;
 	private JComboBox cmb_SapXep_NhanVien;
 	private TableModel_ChamCongNhanVienHanhChanh tableModel_ChamCongNhanVienHanhChach;
+	private JButton btn_TinhLuongToanBo;
 
 	
 	/**
@@ -282,6 +283,11 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 		cmb_SapXep_NhanVien.setBounds(543, 10, 113, 22);
 		pnl_BangNhanVien.add(cmb_SapXep_NhanVien);
 		
+		btn_TinhLuongToanBo = new JButton("Tính lương toàn bộ");
+		btn_TinhLuongToanBo.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btn_TinhLuongToanBo.setBounds(406, 11, 127, 21);
+		pnl_BangNhanVien.add(btn_TinhLuongToanBo);
+		
 		JPanel pnl_NgayCham = new JPanel();
 		pnl_NgayCham.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Ng\u00E0y Ch\u1EA5m", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnl_NgayCham.setBounds(856, 45, 212, 58);
@@ -339,6 +345,7 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 		btnLamRong.addActionListener(this);
 		cmb_SapXep_PhieuChamCong.addActionListener(this);
 		cmb_SapXep_NhanVien.addActionListener(this);
+		btn_TinhLuongToanBo.addActionListener(this);
 	}
 
 	@Override
@@ -359,6 +366,7 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 					txp_LyDo.setEditable(true);
 				else {
 					txp_LyDo.setEditable(false);
+					txp_LyDo.setText("");
 					txp_LyDo.setText("");
 				}
 			}
@@ -427,6 +435,53 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 			if (i == 0) {
 				
 				boolean rs = daoPhieuChamCong.themPhieuChamCong(phieuChamCongNVHC);
+				if(rs) {
+					try {
+						listNhanVien = daoNhanVienHanhChanh.layDS_NVHC_ChuaChamCongTrongNgay(ngayCham);
+						listPhieuChamCong = daoPhieuChamCong.layDS_PhieuChamCongNVHC_Ngay(ngayCham);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					updateTableNhanVien();
+					updateTableNhanVienPhieuCham();
+					JOptionPane.showMessageDialog(this, "Chấm công thành công!", "Phần Mềm Tính Lương", 1);
+				}
+				else 
+					JOptionPane.showMessageDialog(this, "Chấm công thất bại!", "Phần Mềm Tính Lương", 2);
+			} else
+				return;
+		}
+		else if(o.equals(btn_TinhLuongToanBo)) {
+			LocalDate ngayCham = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(dch_NgayCham.getDate()));
+			
+			String thongTinChamCong ="Xác nhận chấm công cho danh sách nhân viên: \n";
+			thongTinChamCong+="    *Ngày chấm công: "+ new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayCham.getDate()) +
+			 "\n    *Trạng thái: "+layETrangThai().layTrangThai() +
+			 (!txp_LyDo.getText().equals("")?"\n    *Lý do vắng mặt: "+txp_LyDo.getText()+"\n":"\n");
+			List<PhieuChamCongNVHC> list = new ArrayList<PhieuChamCongNVHC>();
+			int k = 1;
+			for(NhanVienHanhChanh i : listNhanVien) {
+				PhieuChamCongNVHC phieuChamCongNVHC = new PhieuChamCongNVHC(
+						chk_TangCa.isSelected(),
+						ngayCham,
+						layETrangThai(),
+						txp_LyDo.getText(),
+						i) ;
+				
+				thongTinChamCong+=k+". Mã '"
+								+ i.getMaNVHC()+ "' và Tên '"+i.getTenNVHC()+"'.\n";
+				k++;
+				list.add(phieuChamCongNVHC);
+			}
+			
+			int i = JOptionPane.showConfirmDialog(
+					this, thongTinChamCong,
+					"Phần Mềm Tính Lương", 2);
+			if (i == 0) {
+				boolean rs =false;
+				for(PhieuChamCongNVHC pcc : list) {
+					rs = daoPhieuChamCong.themPhieuChamCong(pcc);
+				}
 				if(rs) {
 					try {
 						listNhanVien = daoNhanVienHanhChanh.layDS_NVHC_ChuaChamCongTrongNgay(ngayCham);

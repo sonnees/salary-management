@@ -161,4 +161,45 @@ public class Dao_TinhLuongNVHC {
 			return null;
 		}
 	}
+	
+	public boolean themLuongNVHC(LuongNVHC luongNVHC) throws SQLException {
+		String sql = "INSERT INTO [dbo].[LuongNVHC]\r\n"
+				+ "           ([maNVHC]\r\n"
+				+ "           ,[luongThang]\r\n"
+				+ "           ,[luongCoBan]\r\n"
+				+ "           ,[luongNgay]\r\n"
+				+ "           ,[soNgayDiLam]\r\n"
+				+ "           ,[soNgayNghiCoPhep]\r\n"
+				+ "           ,[soNgayNghiKhongPhep]\r\n"
+				+ "           ,[soNgayTangCa]\r\n"
+				+ "           ,[soNgayLamChuNhat]\r\n"
+				+ "           ,[soNgayDuocTinhLuong]\r\n"
+				+ "           ,[tongLuongCoBan]\r\n"
+				+ "           ,[tongLuongThem]\r\n"
+				+ "           ,[thanhLuong])\r\n"
+				+ "     VALUES\r\n"
+				+ "           (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setString(1, luongNVHC.getNvhc().getMaNVHC());
+		stmt.setString(2, luongNVHC.getLuongThang());stmt.setLong(3, luongNVHC.getLuongCoBan());
+		stmt.setLong(4, luongNVHC.getLuongNgay());stmt.setInt(5, luongNVHC.getsoNgayDiLam());
+		stmt.setInt(6, luongNVHC.getSoNgayNghiCoPhep());stmt.setInt(7, luongNVHC.getSoNgayNghiKhongPhep());
+		stmt.setInt(8, luongNVHC.getSoNgayTangCa());stmt.setInt(9, luongNVHC.getSoNgayLamChuNhat());
+		stmt.setInt(10, luongNVHC.getSoNgayDuocTinhLuong());stmt.setLong(11, luongNVHC.getTongLuongCoBan());
+		stmt.setLong(12, luongNVHC.getTongLuongThem());stmt.setLong(13, luongNVHC.getThanhLuong());
+		int rs = stmt.executeUpdate();
+		
+		return rs>0;
+	}
+	public boolean daTinhLuongThang(String luongThang) throws SQLException {
+		String sql = "select soLuong= count(maLuongNVHC) from [dbo].[LuongNVHC]  where luongThang =?";
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setString(1, luongThang);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			return rs.getInt("soLuong")>0;
+		}
+		return false;
+	}
+	
 }

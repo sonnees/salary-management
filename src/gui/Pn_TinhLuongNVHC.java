@@ -10,10 +10,14 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JRadioButton;
 import com.toedter.components.JLocaleChooser;
 
@@ -32,6 +36,17 @@ import model.TableModel_NhanVienHanhChanh_RutGon;
 import model.TableModel_TinhLuongNVHC_RutGon;
 import model.TableModel_TinhLuongNVHC_DayDu;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JDateChooser;
@@ -39,6 +54,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.Panel;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -47,18 +63,25 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+
 import java.awt.event.ActionListener;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.InputMethodListener;
@@ -69,6 +92,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.awt.event.ActionEvent;
 
 public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
@@ -87,6 +112,8 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 	private TableModel_TinhLuongNVHC_DayDu tableModel_TinhLuongNVHC_DayDu;
 	private TableModel_TinhLuongNVHC_RutGon tableModel_TinhLuongNVHC_RutGon;
 	private JButton btnXemBangLuong;
+	private JSpinner spinnerThang;
+	private JSpinner spinnerYear;
 	
 	/**
 	 * Create the panel.
@@ -101,7 +128,7 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		lbl_TieuDe.setFont(new Font("Tahoma", Font.BOLD, 20));
 		add(lbl_TieuDe);
 		
-		btnXuatFile = new JButton("Xuất File");
+		btnXuatFile = new JButton("Xuất PDF");
 		btnXuatFile.setToolTipText("Xuất file");
 		btnXuatFile.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnXuatFile.setBounds(1062, 170, 105, 32);
@@ -194,15 +221,14 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		panel_1.add(lbl_Thang);
 		lbl_Thang.setHorizontalAlignment(SwingConstants.LEFT);
 		lbl_Thang.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 	
-		cmb_Thang = new JComboBox();
-		cmb_Thang.setBounds(72, 21, 36, 32);
-		panel_1.add(cmb_Thang);
-		cmb_Thang.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
-		cmb_Thang.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cmb_Thang.setBackground(Color.WHITE);
-		cmb_Thang.setSelectedIndex(1);
+		
+		SpinnerModel spinnerModel_Thang = new SpinnerNumberModel(2, 1, 12, 1);
+        spinnerThang = new JSpinner(spinnerModel_Thang);
+        spinnerThang.setBounds(72, 21, 35, 32);
+        spinnerThang.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        spinnerThang.setBackground(Color.WHITE);
+        panel_1.add(spinnerThang);
 		
 		JLabel lbl_Nam = new JLabel("Năm");
 		lbl_Nam.setHorizontalAlignment(SwingConstants.LEFT);
@@ -210,20 +236,18 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		lbl_Nam.setBounds(144, 21, 36, 32);
 		panel_1.add(lbl_Nam);
 		
-		JComboBox cmb_Nam = new JComboBox();
-		cmb_Nam.setModel(new DefaultComboBoxModel(new String[] {"2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"}));
-		cmb_Nam.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cmb_Nam.setBackground(Color.WHITE);
-		cmb_Nam.setBounds(184, 21, 61, 32);
-		cmb_Nam.setSelectedIndex(4);
-		panel_1.add(cmb_Nam);
-		
+		SpinnerModel spinnerModel = new SpinnerNumberModel(2023, 2020, 2030, 1);
+		spinnerYear = new JSpinner(spinnerModel);
+		spinnerYear.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		spinnerYear.setBackground(Color.WHITE);
+	    spinnerYear.setBounds(181, 21, 64, 32);
+	    panel_1.add(spinnerYear);
+	    
 		btnXemBangLuong = new JButton("Xem Bảng Lương");
 		btnXemBangLuong.setBounds(292, 29, 160, 32);
 		panel_2.add(btnXemBangLuong);
 		btnXemBangLuong.setToolTipText("Xem bảng lương của các nhân viên hành chính trong công ty trong tháng và nam chọn");
 		btnXemBangLuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
 
 		btnTinhLuong.addActionListener(this);
 		btnXemBangLuong.addActionListener(this);
@@ -231,13 +255,33 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		cmb_SapXep.addActionListener(this);
 		cmb_CheDoXem.addActionListener(this);
 		cmb_SapXep.setSelectedIndex(0);
+		btnTinhLuong.setEnabled(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnXemBangLuong)) {
-			
+			try {
+				LocalDate dateNow = LocalDate.now();
+				boolean thoaThoiGian =(Integer.parseInt(spinnerYear.getValue().toString()) == dateNow.getYear() 
+						&& Integer.parseInt(spinnerThang.getValue().toString()) > (dateNow.getMonthValue())
+					) || Integer.parseInt(spinnerYear.getValue().toString()) > dateNow.getYear() ;
+					
+				
+				String ngayTinhLuong = Integer.parseInt(spinnerThang.getValue().toString())+"-"+Integer.parseInt(spinnerYear.getValue().toString());
+				listlLuongNVHCs = daoTinhLuongNVHC.tinhLuongNVHC(Integer.parseInt(spinnerThang.getValue().toString()),Integer.parseInt(spinnerYear.getValue().toString()));
+				cmb_SapXep.setSelectedIndex(0);
+				
+				if(daoTinhLuongNVHC.daTinhLuongThang(ngayTinhLuong) || thoaThoiGian)
+					btnTinhLuong.setEnabled(false);
+				else 
+					btnTinhLuong.setEnabled(true);
+				
+				updateTable();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		else if(o.equals(cmb_SapXep)) {
 			if(cmb_SapXep.getSelectedIndex()==0) {
@@ -253,6 +297,48 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		}
 		else if(o.equals(cmb_CheDoXem)) {
 			updateTable();
+		}
+		else if(o.equals(btnTinhLuong)) {
+			String ngayTinhLuong = Integer.parseInt(spinnerThang.getValue().toString())+"-"+Integer.parseInt(spinnerYear.getValue().toString());
+			int i = JOptionPane.showConfirmDialog(
+					this, "Xác nhận tính lương cho tháng '"+ngayTinhLuong+"'",
+					"Phần Mềm Tính Lương", 2);
+			if (i == 0) {
+				
+				for(LuongNVHC l : listlLuongNVHCs) {
+					boolean rs=false;
+					try {
+						rs = daoTinhLuongNVHC.themLuongNVHC(l);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+					
+					if(!rs)
+						JOptionPane.showMessageDialog(this, "Tính lương thất bại cho "+l.toString(), "Phần Mềm Tính Lương", 2);
+				}
+				btnTinhLuong.setEnabled(false);
+				JOptionPane.showMessageDialog(this, "Đã lưu \n các phiếu tính lương cho nhân viên hành chách '"+ngayTinhLuong+"' vào hệ thống thành công", "Phần Mềm Tính Lương", 1);
+			} else
+				return;
+		}
+		else if(o.equals(btnXuatFile)) {
+			String fileName = ""; 
+			JFileChooser fileChooser = new JFileChooser();
+	        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	        String path="";
+	        int result = fileChooser.showOpenDialog(null);
+	        if (result == JFileChooser.APPROVE_OPTION) { 
+	            File selectedFile = fileChooser.getSelectedFile(); 
+	            path = selectedFile.getAbsolutePath(); 
+	        } else {
+	            return;
+	        }
+	        
+	        String name = JOptionPane.showInputDialog(null, "Nhập tên của file(bao gồm cả .pdf):");
+	        if(name==null || name.equals(""))
+	        	return;
+	        fileName=path+"\\"+name;
+			exportToPdf(tbl_LuongNVHC, fileName);
 		}
 	}
 	private int layKQSoSanh(String tenNVHC1, String tenNVHC2) {
@@ -277,4 +363,63 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		
 		tbl_LuongNVHC.updateUI();
 	}
+	public void exportToPdf(JTable table, String fileName) {
+        Document document = new Document(PageSize.A4.rotate());
+        try {
+        	String ngayTinhLuong = Integer.parseInt(spinnerThang.getValue().toString())+"-"+Integer.parseInt(spinnerYear.getValue().toString());
+        	BaseFont unicodeFont = BaseFont.createFont("c:/windows/fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            
+            com.itextpdf.text.Font font = new com.itextpdf.text.Font(unicodeFont, 12);
+            
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
+            document.open();
+            
+           Paragraph paragraph_title = new Paragraph("BẢNG THANH TOÁN LƯƠNG CHO NHÂN VIÊN HÀNH CHÍNH",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
+           paragraph_title.setAlignment(Element.ALIGN_CENTER);
+           document.add(paragraph_title);
+           Paragraph paragraph_title1 = new Paragraph("Tháng "+ngayTinhLuong+"\n\n",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
+           paragraph_title1.setAlignment(Element.ALIGN_CENTER);
+           document.add(paragraph_title1);
+           
+            PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
+            pdfTable.setWidthPercentage(100);
+            PdfPCell cell;
+            for (int i = 0; i < table.getColumnCount(); i++) {
+                cell = new PdfPCell(new com.itextpdf.text.Phrase(table.getColumnName(i),new com.itextpdf.text.Font(unicodeFont, 9,Font.BOLD)));
+                cell.setPaddingLeft(10); 
+                cell.setPaddingRight(10);
+                pdfTable.addCell(cell);
+            }
+            pdfTable.setHeaderRows(1);
+            for (int i = 0; i < table.getRowCount(); i++) {
+                for (int j = 0; j < table.getColumnCount(); j++) {
+                    cell = new PdfPCell(new com.itextpdf.text.Phrase(table.getValueAt(i, j).toString(),new com.itextpdf.text.Font(unicodeFont, 9)));
+                    pdfTable.addCell(cell);
+                }
+            }
+            document.add(pdfTable);
+            
+            long tongTien = 0;
+            for(LuongNVHC i : listlLuongNVHCs)
+            	tongTien +=i.getThanhLuong();
+            
+            Paragraph paragraph_Ket = new Paragraph("\n               Tổng số tiền: "+new DecimalFormat("###,###,###").format(tongTien)+" vnd",new com.itextpdf.text.Font(unicodeFont, 14));
+            paragraph_Ket.setAlignment(Element.ALIGN_LEFT);
+            document.add(paragraph_Ket);
+            Paragraph paragraph_KyTen = new Paragraph("\nNgày  ...  tháng  ...  năm  ...                         .",new com.itextpdf.text.Font(unicodeFont, 14,Font.ITALIC));
+            paragraph_KyTen.setAlignment(Element.ALIGN_RIGHT);
+            document.add(paragraph_KyTen);
+            Paragraph paragraph_GiamDoc = new Paragraph("              Giám đốc                                       .",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
+            paragraph_GiamDoc.setAlignment(Element.ALIGN_RIGHT);
+            document.add(paragraph_GiamDoc);
+            
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            document.close();
+            JOptionPane.showMessageDialog(this, "File đã được lưu tại '"+fileName+"'", "Phần Mềm Tính Lương", 1);
+        }
+    }
 }
