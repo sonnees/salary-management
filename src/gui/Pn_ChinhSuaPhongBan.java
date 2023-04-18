@@ -42,12 +42,12 @@ public class Pn_ChinhSuaPhongBan extends JPanel implements ActionListener{
 	private JButton btnThemPK;
 	private JButton btnXoaPK;
 	private JButton btnSuaPK;
-	private java.util.List<PhongBan> listPhongBan;
+	private Dao_PhongBan daoPhongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
+	private java.util.List<PhongBan> listPhongBan = null;
 	private JButton btnXoaRong;
 	private TableModel_PhongBan tableModel_PhongBan;
 	private JTable tbl_PhongBan;
 	private JComboBox cmb_SapXep;
-	private Dao_PhongBan daoPhongBan;
 
 	/**
 	 * Create the panel.
