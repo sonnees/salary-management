@@ -367,7 +367,6 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 				else {
 					txp_LyDo.setEditable(false);
 					txp_LyDo.setText("");
-					txp_LyDo.setText("");
 				}
 			}
 			else 
@@ -433,7 +432,6 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 							+ nv.getMaNVHC()+ "' và Tên '"+nv.getTenNVHC()+"':\n"+thongTinChamCong,
 					"Phần Mềm Tính Lương", 2);
 			if (i == 0) {
-				
 				boolean rs = daoPhieuChamCong.themPhieuChamCong(phieuChamCongNVHC);
 				if(rs) {
 					try {
@@ -500,7 +498,6 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 		}
 	}
 
-
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		Object o = evt.getSource();
@@ -537,7 +534,6 @@ public class Pn_ChamCongNhanVienHanhChach extends JPanel implements ActionListen
 	}
 	
 	private int layKQSoSanh(String tenNVHC1, String tenNVHC2) {
-		
 		String[] arrTenNVHC1 = tenNVHC1.split(" ");
 		String[] arrTenNVHC2 = tenNVHC2.split(" ");
 		

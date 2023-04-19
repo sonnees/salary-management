@@ -199,9 +199,9 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 		add(panel);
 		panel.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 34, 1221, 302);
-		panel.add(scrollPane);
+		JScrollPane scp_Bang = new JScrollPane();
+		scp_Bang.setBounds(10, 34, 1221, 302);
+		panel.add(scp_Bang);
 		
 		
 		
@@ -241,7 +241,7 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 		tbl_NhanVienHanhChanh.setSelectionBackground(new Color(190, 210, 255));
 		tbl_NhanVienHanhChanh.setRowHeight(35);
 		
-		scrollPane.setViewportView(tbl_NhanVienHanhChanh);
+		scp_Bang.setViewportView(tbl_NhanVienHanhChanh);
 		
 		cmb_SapXep = new JComboBox();
 		cmb_SapXep.setToolTipText("Chọn để sắp xếp bảng");
@@ -291,23 +291,26 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 		txt_NgaySinh.setColumns(10);
 		txt_NgaySinh.setBounds(253, 167, 223, 32);
 		add(txt_NgaySinh);
-		
+	
 		btnTimKiem.addActionListener(this);
-		btnTimKiem.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control pressed F"), "myAction");
-		btnTimKiem.getActionMap().put("myAction", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnTimKiem.doClick();
-            }
-        });
+		btnTimKiem.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+					.put(KeyStroke.getKeyStroke("control pressed F"), "a");
+		btnTimKiem.getActionMap().put("a", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				btnTimKiem.doClick();
+			}
+		});
 		btnXoaTrang.addActionListener(this);
-		btnXoaTrang.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("control pressed Q"), "myAction");
-		btnXoaTrang.getActionMap().put("myAction", new AbstractAction() {
+		btnXoaTrang.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+							.put(KeyStroke.getKeyStroke("control pressed Q"), "a");
+		btnXoaTrang.getActionMap().put("a", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	btnXoaTrang.doClick();
             }
         });
+		
 		cmb_SapXep.addActionListener(this);
 		dch_NgaySinh.addPropertyChangeListener(this);
 		txt_SoDienThoai.addKeyListener(this);
@@ -371,7 +374,6 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 	}
 
 	private int layKQSoSanh(String tenNVHC1, String tenNVHC2) {
-		
 		String[] arrTenNVHC1 = tenNVHC1.split(" ");
 		String[] arrTenNVHC2 = tenNVHC2.split(" ");
 		
@@ -460,13 +462,14 @@ public class Pn_TimKiemNhanVienHanhChach extends JPanel implements ActionListene
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+        if (!(Character.isDigit(c))) {
             e.consume(); 
             return;
         }
         
         if (txt_SoDienThoai.getText().length() >= 10) {
             e.consume(); 
+            return;
         }
 	}
 

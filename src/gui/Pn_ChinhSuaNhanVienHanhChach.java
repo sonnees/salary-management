@@ -119,7 +119,6 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 		lbl_TieuDe.setFont(new Font("Tahoma", Font.BOLD, 20));
 		add(lbl_TieuDe);
 		
-		
 		JLabel lbl_DiaChi = new JLabel("Địa chỉ");
 		lbl_DiaChi.setBounds(71, 167, 105, 32);
 		lbl_DiaChi.setHorizontalAlignment(SwingConstants.LEFT);
@@ -419,12 +418,9 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 						break;
 					}
 					temp+=1;
-				}
-				
-				
+				}	
 			}
 		});
-		
 		btnSua.addActionListener(this);
 		btnLamRong.addActionListener(this);
 		btnXoa.addActionListener(this);
@@ -434,14 +430,11 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 		txt_SoDienThoai.addKeyListener(this);
 		cmb_CheDoXem.addActionListener(this);
 		txt_LuongCoBan.addKeyListener(new KeyListener() {
-			
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-		        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-		            e.consume(); 
-		            return;
-		        }
+		        if (!(Character.isDigit(c))) 
+		            e.consume();   
 			}
 			
 			@Override
@@ -684,7 +677,6 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 
 	private PhongBan layPhongBan() throws SQLException {
 		Dao_PhongBan phongBan = new Dao_PhongBan(ConnectDB.getInstance().getConnection());
-		
 		String tenPB = layDS_PhongBan()[cmb_PhongBan.getSelectedIndex()].toString();
 		return phongBan.timKiemPhongBanBangTen(tenPB);
 	}
@@ -833,14 +825,10 @@ public class Pn_ChinhSuaNhanVienHanhChach extends JPanel implements ActionListen
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-            e.consume(); 
-            return;
-        }
-        
+        if (!(Character.isDigit(c))) 
+            e.consume();       
         if (txt_SoDienThoai.getText().length() >= 10) 
-            e.consume();
-        
+            e.consume(); 
 	}
 
 	@Override

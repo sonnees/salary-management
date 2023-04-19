@@ -1,11 +1,5 @@
 package gui;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import java.util.Random;
 
@@ -199,7 +193,7 @@ public class GD_QuenMatKhau extends JFrame implements ActionListener, KeyListene
 		Object o = e.getSource();
 		if (o.equals(btnGuiLai)) {
 			guiMa();
-			JOptionPane.showMessageDialog(this, "Email đã được gửi thành công!","Phần Mềm Tính Lương", 2);
+			JOptionPane.showMessageDialog(this, "Email đã được gửi lại thành công!","Phần Mềm Tính Lương", 2);
 		}
 		else if(o.equals(btnXacNhanMa)) {
 			if(!txt_ma.getText().equals(ma)) {
@@ -251,6 +245,11 @@ public class GD_QuenMatKhau extends JFrame implements ActionListener, KeyListene
 		}
 		
 	}
+	
+	/**
+	 * hàm lấy mã ngẫu nhiên 6 chữ số gồm: chữ hoa, chữ thường và số
+	 * @return ma 6 số
+	 */
 	public static String layMaNgauNhien() {
         int length = 6;
         String uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -265,21 +264,22 @@ public class GD_QuenMatKhau extends JFrame implements ActionListener, KeyListene
         }
         return sb.toString();
     }
-	public static void guiMa() {
-		// Cấu hình SMTP server
-	      String host = "smtp.gmail.com";
+	
+	/**
+	 * hàm gửi mail
+	 */
+	public static void guiMa() {	
+		String host = "smtp.gmail.com";
 	      String port = "587";
 	      String username = "neesson620@gmail.com";
 	      String password = "fqcoxhtsxnrvuxsu";
 
-	      // Cấu hình thuộc tính mail
 	      Properties props = new Properties();
 	      props.put("mail.smtp.auth", "true");
 	      props.put("mail.smtp.starttls.enable", "true");
 	      props.put("mail.smtp.host", host);
 	      props.put("mail.smtp.port", port);
 
-	      // Tạo một phiên làm việc email
 	      Session session = Session.getInstance(props,
 	         new javax.mail.Authenticator() {
 	            protected PasswordAuthentication getPasswordAuthentication() {
@@ -288,40 +288,36 @@ public class GD_QuenMatKhau extends JFrame implements ActionListener, KeyListene
 	         });
 
 	      try {
-	         // Tạo một email
 	         Message message = new MimeMessage(session);
-	         message.setFrom(new InternetAddress("neesson620@gmail.com"));
+	         message.setFrom(new InternetAddress(username));
 	         message.setRecipients(Message.RecipientType.TO,
 	            InternetAddress.parse(taiKhoan.getGmail().strip()));
 	         
 	         message.setSubject("Xác nhận tài khoản Gmail");
 	         
 	         ma = layMaNgauNhien();
+	         
 	         String noiDung = "Kính gửi anh/chị,\n\n"
-                     + "Đây là email được gửi tự động để đảm bảo bạn là người đang cố đăng nhập vào tài khoản của mình.\n"
-                     + "\nMã 6 ký tự của bạn là: '"+ma+"'\n\n"
-                     + "Xin đừng trả lời gmail này.\n"
-                     + "Phần Mềm Tính Lương";
+                   + "Đây là email được gửi tự động để đảm bảo bạn là người đang cố đăng nhập vào tài khoản của mình.\n"
+                   + "\nMã 6 ký tự của bạn là: '"+ma+"'\n\n"
+                   + "Xin đừng trả lời gmail này.\n"
+                   + "Phần Mềm Tính Lương";
 	         message.setText(noiDung);
 
-	         // Gửi email
 	         Transport.send(message);
 
 	         System.out.println("Email đã được gửi thành công!");
-
 	      } catch (Exception e) {
 	         throw new RuntimeException(e);
 	      }
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char c = e.getKeyChar();
-		if (KeyEvent.VK_SPACE == c) {
+		if (KeyEvent.VK_SPACE == c) 
 	            e.consume(); 
-	            return;
-	    }
+
 		if(txt_Password.getText().length()<=6) {
 			btnXacNhanDoiMatKhau.setEnabled(false);
 			txt_RePassword.setEditable(false);
