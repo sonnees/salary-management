@@ -74,6 +74,9 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.NumberFormatter;
+
+import org.jfree.chart.ChartUtilities;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Component;
@@ -94,6 +97,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
@@ -295,16 +299,17 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 				updateTable();
 			}
 		}
+		
 		else if(o.equals(cmb_CheDoXem)) {
 			updateTable();
 		}
+		
 		else if(o.equals(btnTinhLuong)) {
 			String ngayTinhLuong = Integer.parseInt(spinnerThang.getValue().toString())+"-"+Integer.parseInt(spinnerYear.getValue().toString());
 			int i = JOptionPane.showConfirmDialog(
 					this, "Xác nhận tính lương cho tháng '"+ngayTinhLuong+"'",
 					"Phần Mềm Tính Lương", 2);
 			if (i == 0) {
-				
 				for(LuongNVHC l : listlLuongNVHCs) {
 					boolean rs=false;
 					try {
@@ -322,23 +327,14 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 				return;
 		}
 		else if(o.equals(btnXuatFile)) {
-			String fileName = ""; 
 			JFileChooser fileChooser = new JFileChooser();
-	        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-	        String path="";
-	        int result = fileChooser.showOpenDialog(null);
+	        int result = fileChooser.showSaveDialog(null);
 	        if (result == JFileChooser.APPROVE_OPTION) { 
 	            File selectedFile = fileChooser.getSelectedFile(); 
-	            path = selectedFile.getAbsolutePath(); 
-	        } else {
-	            return;
-	        }
-	        
-	        String name = JOptionPane.showInputDialog(null, "Nhập tên của file(bao gồm cả .pdf):");
-	        if(name==null || name.equals(""))
-	        	return;
-	        fileName=path+"\\"+name;
-			exportToPdf(tbl_LuongNVHC, fileName);
+	            exportToPdf(tbl_LuongNVHC, selectedFile);
+	        } else 
+	        	JOptionPane.showMessageDialog(this, "Lưu thất bại", "Phần Mềm Tính Lương", 2);
+			
 		}
 	}
 	private int layKQSoSanh(String tenNVHC1, String tenNVHC2) {
@@ -363,37 +359,37 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
 		
 		tbl_LuongNVHC.updateUI();
 	}
-	public void exportToPdf(JTable table, String fileName) {
+	public void exportToPdf(JTable table, File fileName) {
         Document document = new Document(PageSize.A4.rotate());
         try {
         	String ngayTinhLuong = Integer.parseInt(spinnerThang.getValue().toString())+"-"+Integer.parseInt(spinnerYear.getValue().toString());
         	BaseFont unicodeFont = BaseFont.createFont("c:/windows/fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             
-            com.itextpdf.text.Font font = new com.itextpdf.text.Font(unicodeFont, 12);
-            
             PdfWriter.getInstance(document, new FileOutputStream(fileName));
             document.open();
+
+            Paragraph paragraph_title = new Paragraph("BẢNG THANH TOÁN LƯƠNG CHO NHÂN VIÊN HÀNH CHÍNH",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
+            paragraph_title.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph_title);
             
-           Paragraph paragraph_title = new Paragraph("BẢNG THANH TOÁN LƯƠNG CHO NHÂN VIÊN HÀNH CHÍNH",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
-           paragraph_title.setAlignment(Element.ALIGN_CENTER);
-           document.add(paragraph_title);
-           Paragraph paragraph_title1 = new Paragraph("Tháng "+ngayTinhLuong+"\n\n",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
-           paragraph_title1.setAlignment(Element.ALIGN_CENTER);
-           document.add(paragraph_title1);
+            Paragraph paragraph_title1 = new Paragraph("Tháng "+ngayTinhLuong+"\n\n",new com.itextpdf.text.Font(unicodeFont, 14,Font.BOLD));
+            paragraph_title1.setAlignment(Element.ALIGN_CENTER);
+            document.add(paragraph_title1);
            
             PdfPTable pdfTable = new PdfPTable(table.getColumnCount());
-            pdfTable.setWidthPercentage(100);
+            pdfTable.setWidthPercentage(100);)
             PdfPCell cell;
             for (int i = 0; i < table.getColumnCount(); i++) {
-                cell = new PdfPCell(new com.itextpdf.text.Phrase(table.getColumnName(i),new com.itextpdf.text.Font(unicodeFont, 9,Font.BOLD)));
-                cell.setPaddingLeft(10); 
-                cell.setPaddingRight(10);
+                cell = new PdfPCell(
+                		new com.itextpdf.text.Phrase(table.getColumnName(i),
+                		new com.itextpdf.text.Font(unicodeFont, 9,Font.BOLD)));
                 pdfTable.addCell(cell);
             }
-            pdfTable.setHeaderRows(1);
             for (int i = 0; i < table.getRowCount(); i++) {
                 for (int j = 0; j < table.getColumnCount(); j++) {
-                    cell = new PdfPCell(new com.itextpdf.text.Phrase(table.getValueAt(i, j).toString(),new com.itextpdf.text.Font(unicodeFont, 9)));
+                    cell = new PdfPCell(
+                    			new com.itextpdf.text.Phrase(table.getValueAt(i, j).toString(),
+                    			new com.itextpdf.text.Font(unicodeFont, 9)));
                     pdfTable.addCell(cell);
                 }
             }
@@ -413,8 +409,6 @@ public class Pn_TinhLuongNVHC extends JPanel implements ActionListener{
             paragraph_GiamDoc.setAlignment(Element.ALIGN_RIGHT);
             document.add(paragraph_GiamDoc);
             
-        } catch (DocumentException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

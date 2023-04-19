@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,7 @@ public class Pn_ThongKeNVHC extends JPanel implements ActionListener{
 	public Pn_ThongKeNVHC() throws SQLException {
 		setLayout(null);
 		
-		JLabel lbl_TieuDe = new JLabel("BẢNG LƯƠNG NHÂN VIÊN HÀNH CHÁNH");
+		JLabel lbl_TieuDe = new JLabel("THỐNG KÊ NHÂN VIÊN HÀNH CHÁNH");
 		lbl_TieuDe.setBounds(10, 10, 1241, 25);
 		lbl_TieuDe.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_TieuDe.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -496,31 +497,20 @@ public class Pn_ThongKeNVHC extends JPanel implements ActionListener{
         updateUI();
 	}
 	
+	// phải nhập đuôi png
 	private void xuatFile(JFreeChart chart) {
-		String fileName = ""; 
 		JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        String path="";
-        int result = fileChooser.showOpenDialog(null);
+        int result = fileChooser.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) { 
             File selectedFile = fileChooser.getSelectedFile(); 
-            path = selectedFile.getAbsolutePath(); 
-        } else {
-            return;
-        }
-        
-        String name = JOptionPane.showInputDialog(null, "Nhập tên của file(bao gồm cả .png):");
-        if(name==null || name.equals(""))
-        	return;
-        fileName=path+"\\"+name;
-        
-        
-      File file = new File(fileName);
-      try {
-          ChartUtilities.saveChartAsPNG(file, chart, 1280, 720);
-          JOptionPane.showMessageDialog(this, file.getAbsolutePath(), "Phần Mềm Tính Lương", 1);
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
-	}
+            try {
+				ChartUtilities.saveChartAsPNG(selectedFile, chart, 1280, 720);
+				JOptionPane.showMessageDialog(this, "Lưu thành công", "Phần Mềm Tính Lương", 1);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this, e, "Phần Mềm Tính Lương", 2);
+				e.printStackTrace();
+			}
+        } else 
+        	JOptionPane.showMessageDialog(this, "Lưu thất bại", "Phần Mềm Tính Lương", 2);
+    }
 }

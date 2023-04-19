@@ -44,7 +44,7 @@ public class TatTab extends JTabbedPane {
                 }
             }
         });
-
+        
         tabTitlePanel.add(closeButton);
         setTabComponentAt(tabIndex, tabTitlePanel);
     }
