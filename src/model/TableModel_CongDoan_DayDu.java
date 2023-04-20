@@ -37,6 +37,10 @@ public class TableModel_CongDoan_DayDu extends AbstractTableModel{
 		// TODO Auto-generated method stub
 		return headLine.length;
 	}
+		@Override
+	public String getColumnName(int column) {
+		return headLine[column];
+	}
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		CongDoan cd = list.get(rowIndex);
