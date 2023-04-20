@@ -40,6 +40,10 @@ public class TableModel_SanPham extends AbstractTableModel{
 		return headLine.length;
 	}
 	@Override
+	public String getColumnName(int column) {
+		return headLine[column];
+	}
+	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		SanPham sp = list.get(rowIndex);
 		
