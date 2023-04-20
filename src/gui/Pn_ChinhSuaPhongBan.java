@@ -170,7 +170,7 @@ public class Pn_ChinhSuaPhongBan extends JPanel implements ActionListener{
 
 			private void capNhatLenTruong(int index) throws SQLException {
 				PhongBan pb = listPhongBan.get(index);
-
+				txtMaPhongBan.setText(pb.getMaPB());
 				txtTenPhongBan.setText(pb.getTenPB() != null ? pb.getTenPB() : "");
 				txtPhanKhu.setText(pb.getPhanKhu() != null ? pb.getPhanKhu() : "");
 			}
