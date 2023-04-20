@@ -16,6 +16,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -60,11 +61,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 
 public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, PropertyChangeListener,KeyListener{
-
-	private JTextField txtMaSanPham;
 	private JTextField txtTenSanPham;
-	private JTextField txtNgayBatDau;
 	private JTextField txtNgayKetThuc;
+	private JTextField txtNgayBatDau;
 
 	private TableModel_SanPham tableModel_SanPham;
 	private JTable tbl_SanPham;
@@ -93,6 +92,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 	 */
 	public Pn_ChinhSuaSanPham() throws SQLException{
 		setLayout(null);
+		setSize(1290,820);
 		
 		JLabel lblChinhSuaSP = new JLabel("CHỈNH SỬA SẢN PHẨM");
 		lblChinhSuaSP.setBounds(518, 11, 258, 25);
@@ -100,91 +100,77 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		lblChinhSuaSP.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblChinhSuaSP);
 		
-		JLabel lblMaSanPham = new JLabel("Mã sản phẩm");
-		lblMaSanPham.setBounds(20, 70, 105, 32);
-		lblMaSanPham.setHorizontalAlignment(SwingConstants.LEFT);
-		lblMaSanPham.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		add(lblMaSanPham);
-		
-		txtMaSanPham = new JTextField();
-		txtMaSanPham.setBounds(135, 70, 413, 32);
-		add(txtMaSanPham);
-		txtMaSanPham.setColumns(10);
-		
 		JLabel lblTenSanPham = new JLabel("Tên sản phẩm");
 		lblTenSanPham.setHorizontalAlignment(SwingConstants.LEFT);
 		lblTenSanPham.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTenSanPham.setBounds(20, 120, 105, 32);
+		lblTenSanPham.setBounds(20, 90, 105, 32);
 		add(lblTenSanPham);
 		
 		txtTenSanPham = new JTextField();
 		txtTenSanPham.setColumns(10);
-		txtTenSanPham.setBounds(135, 120, 413, 32);
+		txtTenSanPham.setBounds(135, 90, 413, 32);
 		add(txtTenSanPham);
 		
 		JLabel lblDonViTinh = new JLabel("Đơn vị tính");
 		lblDonViTinh.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDonViTinh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblDonViTinh.setBounds(20, 270, 105, 32);
+		lblDonViTinh.setBounds(20, 250, 105, 32);
 		
 		add(lblDonViTinh);
 		cmbDonViTinh = new JComboBox();
-		cmbDonViTinh.setBounds(135, 270, 80, 32);
+		cmbDonViTinh.setBounds(135, 250, 80, 32);
+		cmbDonViTinh.setModel(new DefaultComboBoxModel(donViTinh));
 		add(cmbDonViTinh);
 		
 		JLabel lblNgayKetThuc = new JLabel("Ngày kết thúc");
 		lblNgayKetThuc.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNgayKetThuc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayKetThuc.setBounds(20, 220, 105, 32);
+		lblNgayKetThuc.setBounds(20, 200, 105, 32);
 		add(lblNgayKetThuc);
 		
 		dch_NgayBatDau = new JDateChooser();
-		dch_NgayBatDau.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dch_NgayBatDau.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dch_NgayBatDau.setBounds(526, 170, 22, 32);
+		dch_NgayBatDau.setBounds(526, 150, 22, 32);
 		add(dch_NgayBatDau);
-		
-		txtNgayBatDau = new JTextField();
-		txtNgayBatDau.setColumns(10);
-		txtNgayBatDau.setBounds(135, 220, 394, 32);
-		add(txtNgayBatDau);
-		
-		dch_NgayKetThuc = new JDateChooser();
-		dch_NgayKetThuc.getCalendarButton().setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dch_NgayKetThuc.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		dch_NgayKetThuc.setBounds(526, 220, 22, 32);
-		add(dch_NgayKetThuc);
 		
 		txtNgayKetThuc = new JTextField();
 		txtNgayKetThuc.setColumns(10);
-		txtNgayKetThuc.setBounds(135, 170, 394, 32);
+		txtNgayKetThuc.setBounds(135, 200, 394, 32);
 		add(txtNgayKetThuc);
+		
+		dch_NgayKetThuc = new JDateChooser();
+		dch_NgayKetThuc.setBounds(526, 200, 22, 32);
+		add(dch_NgayKetThuc);
+		
+		txtNgayBatDau = new JTextField();
+		txtNgayBatDau.setColumns(10);
+		txtNgayBatDau.setBounds(135, 150, 394, 32);
+		add(txtNgayBatDau);
 		JLabel lblSoLuong = new JLabel("Số lượng");
 		lblSoLuong.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSoLuong.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSoLuong.setBounds(243, 270, 80, 32);
+		lblSoLuong.setBounds(243, 250, 80, 32);
 		add(lblSoLuong);
 		
 		txtSoLuong = new JTextField();
 		txtSoLuong.setColumns(10);
-		txtSoLuong.setBounds(318, 270, 80, 32);
+		txtSoLuong.setBounds(318, 250, 80, 32);
 		add(txtSoLuong);
 		
 		JLabel lblNgayBatDau = new JLabel("Ngày bắt đầu");
 		lblNgayBatDau.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNgayBatDau.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNgayBatDau.setBounds(20, 170, 105, 32);
+		lblNgayBatDau.setBounds(20, 150, 105, 32);
 		add(lblNgayBatDau);
 		
 		JLabel lblHoanThanh = new JLabel("Hoàn thành");
 		lblHoanThanh.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHoanThanh.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblHoanThanh.setBounds(424, 270, 105, 32);
+		lblHoanThanh.setBounds(424, 250, 105, 32);
 		add(lblHoanThanh);
 		
 		
 		chckbxHoanThanh = new JCheckBox("");
-		chckbxHoanThanh.setBounds(519, 270, 29, 32);
+		chckbxHoanThanh.setBounds(519, 250, 29, 32);
 		add(chckbxHoanThanh);
 		
 		btnThemSP = new JButton("Thêm");
@@ -221,7 +207,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		cmb_SapXepSP.setBounds(1137, 11, 113, 22);
 		pnSP.add(cmb_SapXepSP);
 		
-		String[] HeaderSP = { "Mã sản phẩm", "Tên sản phẩm", "Đơn vị tính", "Số lượng", "Ngày bắt đầu", "Ngày kết thúc", "Hoàn thành" };
+		String[] HeaderSP = {"Mã sản phẩm","Tên sản phẩm", "Đơn vị tính", "Số lượng", "Ngày bắt đầu", "Ngày kết thúc", "Hoàn thành" };
 		tableModel_SanPham = new TableModel_SanPham(listSanPham, HeaderSP);
 		tbl_SanPham = new JTable(tableModel_SanPham) {
 			@Override
@@ -267,20 +253,23 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 
 			private void capNhatLenTruong(int index) throws SQLException {
 				SanPham sp = listSanPham.get(index);
-
 				txtTenSanPham.setText(sp.getTenSP() != null ? sp.getTenSP() : "");
 				int temp=0;
-				for(String i : donViTinh) {
-					if(sp.getDonViTinh().layDonViTinh().equals(i)) {
+				List<String> a =layDS_DonViTinh();
+				for(String i :donViTinh) {
+					if(i.equalsIgnoreCase(sp.getDonViTinh().layDonViTinh())) {
 						cmbDonViTinh.setSelectedIndex(temp);
 						break;
 					}
 					temp+=1;
 				}
 				txtSoLuong.setText(sp.getSoLuong()+"");
-				dch_NgayBatDau.setDate(sp.getNgayBatDau()!=null?java.sql.Date.valueOf(sp.getNgayBatDau()):null);
-				dch_NgayKetThuc.setDate(sp.getNgayKetThuc()!=null?java.sql.Date.valueOf(sp.getNgayKetThuc()):null);
+				dch_NgayBatDau.setDate(sp.getNgayBatDau()!=null
+						?java.sql.Date.valueOf(sp.getNgayBatDau() ):null);
+				dch_NgayKetThuc.setDate(sp.getNgayKetThuc()!=null
+						?java.sql.Date.valueOf(sp.getNgayKetThuc()):null);
 				chckbxHoanThanh.setSelected(sp.isHoanThanh()== true ? sp.isHoanThanh():false );
+			
 			}
 		});
 		
@@ -327,10 +316,10 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		
 		scrollPaneCD.setViewportView(tbl_CongDoan);
 		
-		btnThemCongDoan.addActionListener(this);
 		btnSuaSP.addActionListener(this);
 		btnXoaSP.addActionListener(this);
 		btnThemSP.addActionListener(this);
+		btnThemCongDoan.addActionListener(this);
 		dch_NgayBatDau.addPropertyChangeListener(this);
 		dch_NgayKetThuc.addPropertyChangeListener(this);	
 		cmbDonViTinh.addActionListener(this);
@@ -352,11 +341,17 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 			 return EDonViTinh.CAI;
 		}
 	}
+	private List<String> layDS_DonViTinh() throws SQLException {
+		Dao_SanPham daoSanPham = new Dao_SanPham(ConnectDB.getInstance().getConnection());
+		List<String> list = new ArrayList<String>();
+		daoSanPham.layDS_SanPham().forEach(i -> list.add(i.getDonViTinh().layDonViTinh()));
+		return list;
+	}
 	
 	private void lamRong() {
 		txtTenSanPham.setText("");
-		txtNgayBatDau.setText("");
 		txtNgayKetThuc.setText("");
+		txtNgayBatDau.setText("");
 		cmbDonViTinh.setSelectedIndex(0);
 		dch_NgayBatDau.setDate(null);
 		dch_NgayKetThuc.setDate(null);
@@ -429,12 +424,12 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 					}
 				} else
 					return;
-				
+				lamRong();
 			}
 			else if (o.equals(btnSuaSP)) {
 					int index = tbl_SanPham.getSelectedRow();
 					if(index<0) {
-						JOptionPane.showMessageDialog(this, "Chưa chọn nhân viên!", "Phần Mềm Tính Lương", 2);
+						JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm!", "Phần Mềm Tính Lương", 2);
 						return;
 					}
 					
@@ -499,11 +494,12 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 					}
 				else if (o.equals(btnThemCongDoan)) {
 					try {
-						new GD_ThemCongDoan();
+						new GD_ThemCongDoan().setVisible(true);;
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
 				}
+		lamRong();
 	}
 
 	private int layKQSoSanh(String tenSP, String tenSP2) {
@@ -529,7 +525,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		if(spCu.getNgayKetThuc().compareTo(sp.getNgayKetThuc())!=0)
 			thayDoi += "    *Ngày kết thúc: '"+new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(spCu.getNgayKetThuc()))+"' thành '"+new SimpleDateFormat("dd/MM/yyyy").format(Date.valueOf(sp.getNgayKetThuc()))+"'\n";
 		if(spCu.isHoanThanh()!=sp.isHoanThanh())
-			thayDoi += "    *Giới tính: '"+(spCu.isHoanThanh()==true?"Hoàn thành":"Chưa hoàn thành")+"' thành '"+(sp.isHoanThanh()==false?"Chưa hoàn thành":"Hoàn thành")+"'\n";
+			thayDoi += "    *Hoàn thành: '"+(spCu.isHoanThanh()==true?"Hoàn thành":"Chưa hoàn thành")+"' thành '"+(sp.isHoanThanh()==false?"Chưa hoàn thành":"Hoàn thành")+"'\n";
 	
 		return thayDoi;
 	}
@@ -543,7 +539,11 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		// TODO Auto-generated method stub
-		
+		Object o = evt.getSource();
+		if (o.equals(dch_NgayBatDau) && dch_NgayBatDau.getDate() != null)
+			txtNgayKetThuc.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayBatDau.getDate()));
+		if (o.equals(dch_NgayKetThuc) && dch_NgayKetThuc.getDate() != null)
+			txtNgayBatDau.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayKetThuc.getDate()));
 	}
 
 	@Override
