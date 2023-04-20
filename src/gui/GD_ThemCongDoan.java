@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -18,6 +20,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
@@ -26,9 +31,12 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
 import dao.Dao_CongDoan;
+import dao.Dao_PhongBan;
+import dao.Dao_SanPham;
 import db.ConnectDB;
 import entity.CongDoan;
 import entity.CongNhan;
+import entity.SanPham;
 import model.TableModel_CongDoan_DayDu;
 import model.TableModel_CongNhan;
 
@@ -54,22 +62,27 @@ public class GD_ThemCongDoan extends JFrame implements ActionListener{
 	private List<CongDoan> listCongDoan = daoCongDoan.layDS_CongDoan();
 	private TableModel_CongDoan_DayDu tableModel_CongDoan;
 	private JTable tbl_CongDoan;
+	private JButton btnThem;
+	private JButton btnSua;
+	private JButton btnXoa;
+	private JButton btnXoaRong;
+	private JCheckBox ckboxHoanThanh;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GD_ThemCongDoan frame = new GD_ThemCongDoan();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					GD_ThemCongDoan frame = new GD_ThemCongDoan();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -154,7 +167,7 @@ public class GD_ThemCongDoan extends JFrame implements ActionListener{
 		txtDoUuTien.setBounds(584, 180, 177, 30);
 		contentPane.add(txtDoUuTien);
 		
-		JButton btnXoaRong = new JButton("Làm rỗng");
+		btnXoaRong = new JButton("Làm rỗng");
 		btnXoaRong.setBounds(502, 225, 105, 32);
 		contentPane.add(btnXoaRong);
 		
@@ -164,23 +177,19 @@ public class GD_ThemCongDoan extends JFrame implements ActionListener{
 		lblHoanThanh.setBounds(796, 180, 88, 32);
 		contentPane.add(lblHoanThanh);
 		
-		JCheckBox ckboxHoanThanh = new JCheckBox("");
+		ckboxHoanThanh = new JCheckBox("");
 		ckboxHoanThanh.setBounds(890, 180, 53, 30);
 		contentPane.add(ckboxHoanThanh);
 		
-		JButton btnThem = new JButton("Thêm");
+		btnThem = new JButton("Thêm");
 		btnThem.setBounds(619, 225, 105, 32);
 		contentPane.add(btnThem);
 		
-		JButton btnSua = new JButton("Sửa");
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnSua = new JButton("Sửa");
 		btnSua.setBounds(734, 225, 105, 32);
 		contentPane.add(btnSua);
 		
-		JButton btnXoa = new JButton("Xóa");
+		btnXoa = new JButton("Xóa");
 		btnXoa.setBounds(849, 225, 105, 32);
 		contentPane.add(btnXoa);
 		
@@ -201,15 +210,11 @@ public class GD_ThemCongDoan extends JFrame implements ActionListener{
 		panel.add(cmb_SapXep);
 		
 		
-		btnXoaRong.addActionListener(this);
-		btnThem.addActionListener(this);
-		btnXoa.addActionListener(this);
-		btnSua.addActionListener(this);
-		ckboxHoanThanh.addActionListener(this);
 		
 		
-		String[] headLine = { "Mã", "Tên công đoạn", "Độ ưu tiên", "Đơn giá","Hoàn thành","Tên sản phẩm"};
-
+		
+		String[] headLine = { "Mã công đoạn", "Tên công đoạn", "Độ ưu tiên", "Đơn giá","Mã sản phẩm","Hoàn thành"};
+		
 		tableModel_CongDoan = new TableModel_CongDoan_DayDu(listCongDoan, headLine);
 		
 		tbl_CongDoan = new JTable(tableModel_CongDoan) {
@@ -256,25 +261,96 @@ public class GD_ThemCongDoan extends JFrame implements ActionListener{
 		
 			private void capNhatLenTruong(int index) throws SQLException {
 				CongDoan cd = listCongDoan.get(index);
+				txtMaCD.setText(cd.getMaCD());
 				txtTenCD.setText(cd.getTenCD() != null ? cd.getTenCD(): "");
 				txtDoUuTien.setText(cd.getDoUuTien()+"");
 				txtDonGia.setText(cd.getDonGia()+"");
 				txtSoLuong.setText(cd.getDonGia()+"");
 				txtMaSP.setText(cd.getSanPham().getMaSP());
-		
-//				txt_Ten.setText(cn.getTenCN() != null ? cn.getTenCN() : "");
-//				cmb_GioiTinh.setSelectedIndex(cn.isGioiTinh() == true ? 1 : 0);
-//				dch_NgaySinh.setDate(cn.getNgaySinh() != null ? java.sql.Date.valueOf(cn.getNgaySinh()) : null);
-//				txt_DiaChi.setText(cn.getDiaChi() != null ? cn.getDiaChi() : "");
-//				txt_SoDienThoai.setText(cn.getSoDienThoai() != null ? cn.getSoDienThoai() : "");
-		
+				ckboxHoanThanh.setSelected(cd.isHoanThanh()== true ? cd.isHoanThanh():false);
 			}
 		});
+		btnXoaRong.addActionListener(this);
+		btnThem.addActionListener(this);
+		btnXoa.addActionListener(this);
+		btnSua.addActionListener(this);
+		ckboxHoanThanh.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		Object o = e.getSource();
+		if (o.equals(btnXoaRong)) {
+			lamRong();
+		}
+		else if (o.equals(btnThem)) {
+			
+		}
+		else if (o.equals(btnXoa)) {
+			int index = tbl_CongDoan.getSelectedRow();
+			
+			if(index<0) {
+				JOptionPane.showMessageDialog(this, "Chưa chọn công đoạn!", "Phần Mềm Tính Lương", 2);
+				return;
+			}
+			
+			int i = JOptionPane.showConfirmDialog(
+					this, "Bạn có muốn xóa công đoạn có mã \""
+							+ listCongDoan.get(index).getMaCD() + "\" không?",
+					"Phần Mềm Tính Lương", 2);
+			if (i == 0) {
+				try {
+					daoCongDoan.xoaCongDoan(listCongDoan.get(index).getMaCD());
+					
+					listCongDoan = daoCongDoan.layDS_CongDoan();
+					updateTable();
+					JOptionPane.showMessageDialog(this, "Xóa thành công!", "Phần Mềm Tính Lương", 1);
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(this, "Xóa thất bại!", "Phần Mềm Tính Lương", 2);
+				}
+			} else
+				return;
+			lamRong();
+		}
+		else if (o.equals(btnSua)) {
+			
+		}
+	}
+//	private SanPham laySanpham() throws SQLException{
+//		// TODO Auto-generated method stub
+//		Dao_SanPham sanPham = new Dao_SanPham(ConnectDB.getInstance().getConnection());
+//		
+//		String maSP = (String) layDS_SanPhamChoCongDoan().toArray()[txtMaSP.getText()];
+//		
+//		return sanPham.timKiemSanPhamBangMa(maSP);
+//	}
+	private List<String> layDS_SanPhamChoCongDoan() throws SQLException {
+		Dao_SanPham daoSanpham = new Dao_SanPham(ConnectDB.getInstance().getConnection());
+		List<String> list = new ArrayList<String>();
+		daoSanpham.layDS_SanPhamCuaCongDoan().forEach(i -> list.add(i.getMaSP()));
+
+		return list;
+	}
+	
+	private void updateTable() {
+		tableModel_CongDoan.setList(listCongDoan);
+		tbl_CongDoan.updateUI();
+	}
+	
+	private boolean layIsHoanThanh() {
+		if (ckboxHoanThanh.isSelected())
+			return true;
+		return false;
+	}
+	
+	private void lamRong() {
+		// TODO Auto-generated method stub
+		txtMaSP.setText("");
+		txtMaCD.setText("");
+		txtTenCD.setText("");
+		txtSoLuong.setText("");
+		txtDoUuTien.setText("");
+		txtDonGia.setText("");
 	}
 }
