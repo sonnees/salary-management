@@ -35,6 +35,22 @@ public class Dao_CongDoan {
 		}
 		return list;
 	}
+	public List<CongDoan> layDS_CongDoan(String maSp) throws SQLException{
+		List<CongDoan> list= new ArrayList<CongDoan>();
+		String sql="Select * from CongDoan where maSP = '"+maSp+ "'";
+		PreparedStatement ps= con.prepareStatement(sql);
+		ResultSet rs= ps.executeQuery();
+		while(rs.next()) {
+			CongDoan cd= new CongDoan(rs.getString("maCD"), rs.getString("tenCD"),
+					rs.getInt("doUuTien"),
+					rs.getLong("donGia"),
+					rs.getInt("soLuong"),
+					dao_SanPham.timKiemSanPhamBangMa(rs.getString("maSP")),
+					rs.getBoolean("hoanThanh"));
+			list.add(cd);
+		}
+		return list;
+	}
 	public CongDoan timKiemCongDoanBangMa(String ma) throws SQLException {
 		String sql="Select * from CongDoan where maCD= N'"+ma+"'";
 		PreparedStatement ps= con.prepareStatement(sql);
@@ -99,10 +115,10 @@ public class Dao_CongDoan {
 	public boolean themCongDoan(CongDoan cd) {
 		int rs = 0 ;
 		try {
-			String sql = "INSERT INTO [dbo].[CongDoan]\r\n" + "           ([tenCD]\r\n"
-					+ "           ,[doUuTien])\r\n"+ "           ,[donGia]\r\n" + "           ,[soLuong]\r\n"
-					+ "           ,[maSP])\r\n"+ "           ,[hoanThanh])\r\n"
-					+ "				   VALUES\r\n" + "           (?,?,?,?,?,?)";
+			String sql = "INSERT INTO [dbo].[CongDoan] "
+					+ "([tenCD] ,[doUuTien] ,[donGia]  ,[soLuong] "
+					+ ",[maSP],[hoanThanh])"
+					+ " VALUES       (?,?,?,?,?,?)";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, !cd.getTenCD().equals("") ? cd.getTenCD() : null);
 			stmt.setInt(2, cd.getDoUuTien());
@@ -120,9 +136,9 @@ public class Dao_CongDoan {
 	public boolean suaCongDoan(CongDoan cd) {
 		int rs = 0;
 		try {
-			String sql = "UPDATE [dbo].[CongDoan]\r\n" + "   SET [tenCD] = ? \r\n" + "      ,[doUuTien] = ? \r\n"
-					+ "      ,[donGia] = ? \r\n" + "      ,[soLuong] = ? \r\n" + "      ,[maSP] = ? \r\n"
-					+ "      ,[hoanThanh] = ? \r\n" + "  WHERE maCD = ?";
+			String sql = "UPDATE [dbo].[CongDoan] SET [tenCD] = ?  ,[doUuTien] = ? "
+					+ "      ,[donGia] = ? ,[soLuong] = ? ,[maSP] = ?"
+					+ "      ,[hoanThanh] = ?  WHERE maCD = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setString(1, !cd.getTenCD().equals("") ? cd.getTenCD() : null);
 			stmt.setInt(2, cd.getDoUuTien());
