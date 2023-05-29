@@ -44,12 +44,10 @@ import dao.Dao_SanPham;
 import db.ConnectDB;
 import entity.CongDoan;
 import entity.EDonViTinh;
-import entity.NhanVienHanhChanh;
-import entity.PhongBan;
+
 import entity.SanPham;
 import model.TableModel_CongDoan_DayDu;
 import model.TableModel_CongDoan_Sp;
-import model.TableModel_PhongBan;
 import model.TableModel_SanPham;
 
 import javax.swing.border.EtchedBorder;
@@ -84,7 +82,8 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 	private TableModel_CongDoan_Sp tableModel_CongDoan;
 	private JTable tbl_CongDoan;
 	private List<SanPham> listSanPham = daoSanPham.layDS_SanPham();
-	private List<CongDoan> listCongDoan = daoCongDoan.layDS_CongDoan();
+	private List<CongDoan> listCongDoan;
+	private JButton btnLamRong;
 
 	/**
 	 * Create the panel.
@@ -170,41 +169,45 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		
 		
 		chckbxHoanThanh = new JCheckBox("");
+		
 		chckbxHoanThanh.setBounds(519, 250, 29, 32);
+		
 		add(chckbxHoanThanh);
 		
 		btnThemSP = new JButton("Thêm");
-		btnThemSP.setBounds(110, 320, 105, 32);
+		btnThemSP.setBounds(177, 320, 105, 32);
 		add(btnThemSP);
 		
 		btnXoaSP = new JButton("Xóa");
-		btnXoaSP.setBounds(370, 320, 105, 32);
+		btnXoaSP.setBounds(424, 320, 105, 32);
+		btnXoaSP.setEnabled(false);
 		add(btnXoaSP);
 		
 		btnSuaSP = new JButton("Sửa");
-		btnSuaSP.setBounds(240, 320, 105, 32);
+		btnSuaSP.setBounds(302, 320, 105, 32);
 		add(btnSuaSP);
 		
 		btnThemCongDoan = new JButton("Thêm công đoạn");
-		btnThemCongDoan.setBounds(1088, 340, 177, 32);
+		btnThemCongDoan.setEnabled(false);
+		btnThemCongDoan.setBounds(1073, 345, 177, 32);
 		add(btnThemCongDoan);
 		
 		JPanel pnSP = new JPanel();
 		pnSP.setLayout(null);
-		pnSP.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Bảng sản phẩm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnSP.setBounds(10, 385, 1260, 326);
+		pnSP.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh sách sản phẩm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnSP.setBounds(10, 385, 1255, 326);
 		add(pnSP);
 		
 		scrollPaneSP = new JScrollPane();
-		scrollPaneSP.setBounds(10, 37, 1240, 276);
+		scrollPaneSP.setBounds(10, 37, 1235, 278);
 		pnSP.add(scrollPaneSP);
 		
 		cmb_SapXepSP = new JComboBox();
 		cmb_SapXepSP.setToolTipText("Chọn để sắp xếp bảng");
 		cmb_SapXepSP
-		.setModel(new DefaultComboBoxModel(new String[] { "Không sắp xếp", "Theo tên", "Theo ngày bắt đầu" }));
+		.setModel(new DefaultComboBoxModel(new String[] { "Sắp xếp theo mã","Sắp xếp theo ngày bắt đầu" }));
 		cmb_SapXepSP.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		cmb_SapXepSP.setBounds(1137, 11, 113, 22);
+		cmb_SapXepSP.setBounds(1132, 11, 113, 22);
 		pnSP.add(cmb_SapXepSP);
 		
 		String[] HeaderSP = {"Mã sản phẩm","Tên sản phẩm", "Đơn vị tính", "Số lượng", "Ngày bắt đầu", "Ngày kết thúc", "Hoàn thành" };
@@ -244,6 +247,8 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int index = tbl_SanPham.getSelectedRow();
+//				btnThemCongDoan.setEnabled(true);
+				btnXoaSP.setEnabled(true);
 				try {
 					capNhatLenTruong(index);
 				} catch (SQLException e1) {
@@ -253,29 +258,34 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 
 			private void capNhatLenTruong(int index) throws SQLException {
 				SanPham sp = listSanPham.get(index);
-				txtTenSanPham.setText(sp.getTenSP() != null ? sp.getTenSP() : "");
 				int temp=0;
-				List<String> a =layDS_DonViTinh();
 				for(String i :donViTinh) {
-					if(i.equalsIgnoreCase(sp.getDonViTinh().layDonViTinh())) {
+					if(sp.getDonViTinh().layDonViTinh().equals(i)) {
 						cmbDonViTinh.setSelectedIndex(temp);
 						break;
 					}
 					temp+=1;
 				}
+				txtTenSanPham.setText(sp.getTenSP());
 				txtSoLuong.setText(sp.getSoLuong()+"");
 				dch_NgayBatDau.setDate(sp.getNgayBatDau()!=null
 						?java.sql.Date.valueOf(sp.getNgayBatDau() ):null);
 				dch_NgayKetThuc.setDate(sp.getNgayKetThuc()!=null
 						?java.sql.Date.valueOf(sp.getNgayKetThuc()):null);
 				chckbxHoanThanh.setSelected(sp.isHoanThanh()== true ? sp.isHoanThanh():false );
-			
+				if (sp.isHoanThanh() == true) {
+					btnThemCongDoan.setEnabled(false);
+				}else 
+					btnThemCongDoan.setEnabled(true);
+				listCongDoan = daoCongDoan.layDS_CongDoan(sp.getMaSP());
+				tableModel_CongDoan.setList(listCongDoan);
+				tbl_CongDoan.updateUI();
 			}
 		});
 		
 		JPanel pnCD = new JPanel();
 		pnCD.setLayout(null);
-		pnCD.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Bảng công đoạn", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnCD.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Danh sách công đoạn của sản phẩm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		pnCD.setBounds(582, 47, 683, 287);
 		add(pnCD);
 		
@@ -323,6 +333,12 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		dch_NgayBatDau.addPropertyChangeListener(this);
 		dch_NgayKetThuc.addPropertyChangeListener(this);	
 		cmbDonViTinh.addActionListener(this);
+		
+		btnLamRong = new JButton("Làm rỗng");
+		btnLamRong.setBounds(54, 320, 105, 32);
+		add(btnLamRong);
+		btnLamRong.addActionListener(this);
+		
 	}
 	
 	private EDonViTinh layDonViTinh() {
@@ -339,6 +355,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 			return EDonViTinh.DOI;
 		default:
 			 return EDonViTinh.CAI;
+		
 		}
 	}
 	private List<String> layDS_DonViTinh() throws SQLException {
@@ -352,10 +369,11 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		txtTenSanPham.setText("");
 		txtNgayKetThuc.setText("");
 		txtNgayBatDau.setText("");
-		cmbDonViTinh.setSelectedIndex(0);
+		cmbDonViTinh.setSelectedIndex(-1);
 		dch_NgayBatDau.setDate(null);
 		dch_NgayKetThuc.setDate(null);
 		txtSoLuong.setText("");
+		
 	}
 	private boolean layIsHoanThanh() {
 		if (chckbxHoanThanh.isSelected())
@@ -366,14 +384,19 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object o = e.getSource();
-		if (o.equals(btnThemSP)) {
+		if( o.equals(btnLamRong)) {
+			lamRong();
+			updateTable();
+			btnXoaSP.setEnabled(false);
+		}
+		else if (o.equals(btnThemSP)) {
 			SanPham sp = null;
 			try {
 				sp = new SanPham(txtTenSanPham.getText().strip(), layDonViTinh(),
 								Integer.parseInt(txtSoLuong.getText()),
 								dch_NgayBatDau.getDate()!=null?LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(dch_NgayBatDau.getDate())):null,
 								dch_NgayKetThuc.getDate()!=null?LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(dch_NgayKetThuc.getDate())):null, 
-								layIsHoanThanh()
+								false
 						);
 				if(sp.getNgayKetThuc().compareTo(sp.getNgayBatDau())<0) {
 					JOptionPane.showMessageDialog(this, "Ngày kết thúc không được nhỏ hơn ngày bắt đầu!","Phần Mềm Tính Lương", 2);
@@ -417,6 +440,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 						daoSanPham.xoaSanPham(listSanPham.get(index).getMaSP());
 						
 						listSanPham = daoSanPham.layDS_SanPham();
+						listCongDoan = null;
 						updateTable();
 						JOptionPane.showMessageDialog(this, "Xóa thành công!", "Phần Mềm Tính Lương", 1);
 					} catch (Exception e2) {
@@ -426,7 +450,7 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 					return;
 				lamRong();
 			}
-			else if (o.equals(btnSuaSP)) {
+		else if (o.equals(btnSuaSP)) {
 					int index = tbl_SanPham.getSelectedRow();
 					if(index<0) {
 						JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm!", "Phần Mềm Tính Lương", 2);
@@ -478,28 +502,31 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 							JOptionPane.showMessageDialog(this, "Sửa thất bại!", "Phần Mềm Tính Lương", 2);
 					} else
 						return;
-				}
-				else if (o.equals(cmb_SapXepSP)) {
-						if (cmb_SapXepSP.getSelectedIndex() == 0) {
-							Collections.sort(listSanPham, (sp1, sp2) -> sp1.getMaSP().compareTo(sp2.getMaSP()));
-							updateTable();
-						} else if (cmb_SapXepSP.getSelectedIndex() == 1) {
-							Collections.sort(listSanPham, (sp1, sp2) -> layKQSoSanh(sp1.getTenSP(), sp2.getTenSP()));
-							updateTable();
-						} else if(cmb_SapXepSP.getSelectedIndex()==2) {
-							Collections.sort(listSanPham,
-									(sp1,sp2) -> sp1.getNgayBatDau().compareTo(sp2.getNgayBatDau()));
-							updateTable();
-						}
-					}
-				else if (o.equals(btnThemCongDoan)) {
-					try {
-						new GD_ThemCongDoan().setVisible(true);;
-					} catch (SQLException e1) {
-						e1.printStackTrace();
+			}
+		else if (o.equals(cmb_SapXepSP)) {
+					if (cmb_SapXepSP.getSelectedIndex() == 0) {
+						Collections.sort(listSanPham, (sp1, sp2) -> sp1.getMaSP().compareTo(sp2.getMaSP()));
+						updateTable();
+					} else if(cmb_SapXepSP.getSelectedIndex()==1) {
+						Collections.sort(listSanPham,
+								(sp1,sp2) -> sp1.getNgayBatDau().compareTo(sp2.getNgayBatDau()));
+						updateTable();
 					}
 				}
-		lamRong();
+		else if (o.equals(btnThemCongDoan)) {
+				int index = tbl_SanPham.getSelectedRow();
+				
+				if(index<0) {
+					JOptionPane.showMessageDialog(this, "Chưa chọn sản phẩm!", "Phần Mềm Tính Lương", 2);
+					return;
+				}
+				try {
+					new GD_ThemCongDoan(listSanPham.get(index).getMaSP()).setVisible(true);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}		
+			}
+		
 	}
 
 	private int layKQSoSanh(String tenSP, String tenSP2) {
@@ -533,6 +560,9 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 	private void updateTable() {
 		tableModel_SanPham.setList(listSanPham);
 		tbl_SanPham.updateUI();
+		
+		tableModel_CongDoan.setList(listCongDoan);
+		tbl_CongDoan.updateUI();
 	}
 	
 
@@ -541,9 +571,9 @@ public class Pn_ChinhSuaSanPham extends JPanel implements ActionListener, Proper
 		// TODO Auto-generated method stub
 		Object o = evt.getSource();
 		if (o.equals(dch_NgayBatDau) && dch_NgayBatDau.getDate() != null)
-			txtNgayKetThuc.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayBatDau.getDate()));
+			txtNgayBatDau.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayBatDau.getDate()));
 		if (o.equals(dch_NgayKetThuc) && dch_NgayKetThuc.getDate() != null)
-			txtNgayBatDau.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayKetThuc.getDate()));
+			txtNgayKetThuc.setText(new SimpleDateFormat("dd/MM/yyyy").format(dch_NgayKetThuc.getDate()));
 	}
 
 	@Override
