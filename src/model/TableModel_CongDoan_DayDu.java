@@ -17,7 +17,7 @@ public class TableModel_CongDoan_DayDu extends AbstractTableModel{
 	private static final int donGia = 3;
 	private static final int soLuong = 4;
 	private static final int hoanThanh = 5;
-	private static final int maSP = 6;
+	
 	
 	
 	private List<CongDoan> list;
@@ -30,14 +30,16 @@ public class TableModel_CongDoan_DayDu extends AbstractTableModel{
 	@Override
 	public int getRowCount() {
 		// TODO Auto-generated method stub
-		return list.size();
+		if(list==null) 
+			return 0;
+        return list.size();
 	}
 	@Override
 	public int getColumnCount() {
 		// TODO Auto-generated method stub
 		return headLine.length;
 	}
-		@Override
+	@Override
 	public String getColumnName(int column) {
 		return headLine[column];
 	}
@@ -57,9 +59,7 @@ public class TableModel_CongDoan_DayDu extends AbstractTableModel{
 		case soLuong: 
 			return cd.getSoLuong();
 		case hoanThanh: 
-			return cd.isHoanThanh()==true?"Hoàn thành":"Chưa hoàn thành";
-		case maSP: 
-			return cd.getSanPham().getMaSP();			
+			return cd.isHoanThanh()==true?"Hoàn thành":"Chưa hoàn thành";		
 		default:
 			break;
 		}

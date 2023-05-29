@@ -6,16 +6,15 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import entity.CongDoan;
+import entity.SanPham;
 
 public class TableModel_CongDoan_Sp extends AbstractTableModel{
 	private static final long serialVersionUID = 1L;
 	private static final int maCD = 0;
 	private static final int tenCD = 1;
 	private static final int doUuTien = 2;
-	private static final int donGia = 3;
-	private static final int soLuong = 4;
-	private static final int hoanThanh = 5;
-	
+	private static final int soLuong = 3;
+	private static final int hoanThanh = 4;
 	
 	private List<CongDoan> list;
 	private String[] headLine;
@@ -25,8 +24,10 @@ public class TableModel_CongDoan_Sp extends AbstractTableModel{
 		this.headLine = headLine;
 	}
 	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return list.size();
+		
+		if(list==null) 
+			return 0;
+        return list.size();
 	}
 	
 	public String getColumnName(int column) {
@@ -46,8 +47,6 @@ public class TableModel_CongDoan_Sp extends AbstractTableModel{
 			return cd.getTenCD();
 		case doUuTien:
 			return cd.getDoUuTien();
-		case donGia: 
-			return new DecimalFormat("###,###,###").format(cd.getDonGia())+ " vnđ" ;
 		case soLuong: 
 			return cd.getSoLuong();
 		case hoanThanh: 
